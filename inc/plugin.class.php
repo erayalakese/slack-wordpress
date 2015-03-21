@@ -100,6 +100,10 @@ class Slack_Plugin {
         wp_enqueue_script( 'bootstrap-for-slack', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' );
         wp_enqueue_script( 'bootstrapjs-for-slack', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js', array('bootstrap-for-slack', 'jquery') );
     }
+    public function getApi()
+    {
+    	return $this->api;
+    }
     public function getVersion()
     {
     	return "0.0.1";
