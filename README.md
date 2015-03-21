@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/erayalakese/slack-wordpress.svg)](https://travis-ci.org/erayalakese/slack-wordpress)
