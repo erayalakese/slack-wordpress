@@ -40,7 +40,10 @@ class Slack_API {
 		$c = file_get_contents($url);
 		$result = json_decode($c);
 
-		return $result->channels;
+		if(isset($result->channels))
+			return $result->channels;
+		else
+			return false;
 	}
 
 	public function publish_post($msg)
@@ -54,7 +57,8 @@ class Slack_API {
 		$url .= "&text=".urlencode($msg);
 		$url .= "&username=WordPress%20BOT";
 
-		file_get_contents($url);
+		$result = json_decode(file_get_contents($url));
+		return $result;
 
 	}
 
