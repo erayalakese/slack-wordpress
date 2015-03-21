@@ -10,4 +10,4 @@ env:
 before_script:
     - bash bin/install-wp-tests.sh slackwordpresstest root '' localhost $WP_VERSION 
 
-script: phpunit tests/
+script: phpunit
