@@ -11,6 +11,9 @@ class Slack_Plugin {
 
 		if(get_option("slack_on_publish"))
 			add_action('publish_post', array($this, 'publish_post_hook'));
+
+		if(get_option("slack_on_waitingcomment"))
+			add_action('wp_insert_comment', array($this, 'waiting_comment_hook'), 10, 2);
 	}
 	public function register_menu_page() {
 		add_options_page("Slack", "Slack", "manage_options", "slack-for-wordpress", array($this, 'load_page'));
@@ -29,6 +32,11 @@ class Slack_Plugin {
 		{
 			update_option("slack_on_publish", $_POST["slack_on_publish"]);
 			update_option("slack_on_publish_channel", $_POST["slack_on_publish_channel"]);
+		}
+		if($_POST["slack_on_waitingcomment"])
+		{
+			update_option("slack_on_waitingcomment", $_POST["slack_on_waitingcomment"]);
+			update_option("slack_on_waitingcomment_channel", $_POST["slack_on_waitingcomment_channel"]);
 		}
 
 		$channels = $this->api->get_channel_list();
@@ -73,6 +81,22 @@ class Slack_Plugin {
 							</select>
 						</td>
 					</tr>
+
+					<?php
+						$slack_on_waitingcomment = get_option("slack_on_waitingcomment");
+						$slack_on_waitingcomment_channel = get_option("slack_on_waitingcomment_channel")
+					?>
+					<tr>
+						<th>On Pending Comment</th>
+						<td>
+							<input type="checkbox" name="slack_on_waitingcomment" <?=$slack_on_waitingcomment?"checked=checked":""?>>
+							<select name="slack_on_waitingcomment_channel" id="">
+								<?php foreach($channels as $channel) : ?>
+								<option value="<?=$channel->id?>" <?=$slack_on_waitingcomment_channel?"selected=selected":""?>><?=$channel->name?></option>
+								<?php endforeach; ?>
+							</select>
+						</td>
+					</tr>
 					<?php endif; ?>
 					<tr>
 						<td><input type="submit" class="button-primary"></td>
@@ -90,6 +114,14 @@ class Slack_Plugin {
 	public function publish_post_hook($postID)
 	{
 		$this->api->publish_post(get_the_title($postID)." published. ".get_permalink($postID));
+	}
+
+	public function waiting_comment_hook($comment_id, $comment_object)
+	{
+		if($comment_object->comment_approved == '0')
+		{
+			$this->api->publish_post("There is a new comment pending for approval.\n*Post Name* : ".get_the_title($comment_object->comment_post_ID));
+		}
 	}
 
 	public function register_bootstrap()
