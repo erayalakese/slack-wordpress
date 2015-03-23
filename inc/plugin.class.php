@@ -22,6 +22,7 @@ class Slack_Plugin {
 	public function load_page() {
 		?>
 		<div class="wrap">
+		<div class="bootstrap-wp-wrapper">
 		<div class="container-fluid">
 		    <div class="page-header">
 		         <h1><img src="https://slack.global.ssl.fastly.net/895d/img/landing_slack_hash_wordmark_logo.png" alt=""> <small>integration for WordPress</small></h1>
@@ -156,6 +157,7 @@ class Slack_Plugin {
 		    </div>
 		</div>
 		</div>
+		</div>
 		<?php
 	}
 	public function load_page_bak() { 
@@ -277,7 +279,7 @@ class Slack_Plugin {
     	endif;
     }
     public function slack_plugin_admin_styles() {
-        wp_enqueue_style( 'bootstrap-for-slack', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' );
+        wp_enqueue_style( 'bootstrap-for-slack', plugins_url('css/bootstrap-wp.min.css', dirname(__FILE__)) );
         wp_enqueue_style( 'slack-opensans-css', 'http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' );
         wp_enqueue_style( 'slack-style-css', plugins_url('css/style.css', dirname(__FILE__)) );
 
