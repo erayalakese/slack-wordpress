@@ -3,11 +3,12 @@
 class Slack_Plugin {
 
 	private $api;
+	private $page_hook = 'settings_page_slack-for-wordpress';
 
 	public function __construct() {
 		add_action('admin_menu', array($this, 'register_menu_page'));
 		$this->api = new Slack_API();
-		$this->register_bootstrap();
+		$this->register_scripts();
 
 		if(get_option("slack_on_publish"))
 			add_action('publish_post', array($this, 'publish_post_hook'));
@@ -18,7 +19,148 @@ class Slack_Plugin {
 	public function register_menu_page() {
 		add_options_page("Slack", "Slack", "manage_options", "slack-for-wordpress", array($this, 'load_page'));
 	}
-	public function load_page() { 
+	public function load_page() {
+		?>
+		<div class="wrap">
+		<div class="bootstrap-wp-wrapper">
+		<div class="container-fluid">
+		    <div class="page-header">
+		         <h1><img src="<?=plugins_url('img/slack.png', dirname(__FILE__))?>" alt=""> <small>integration for WordPress</small></h1>
+		    </div>
+		    <div class="row">
+		        <div class="col-sm-3">POST</div>
+		        <div class="col-sm-9">
+		            <input type="checkbox" class="slack_admin_checkbox" />
+		            <label>When a post published</label>
+		            <br />
+		            <div class="disabled">Send notification to this channel :
+		                <select></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" />Post title
+		                <input type="checkbox" />Post author
+		            </div>
+		            <hr />
+		            <input type="checkbox" class="slack_admin_checkbox" />
+		            <label>When a post deleted</label>
+		            <br />
+		            <div class="disabled">Send notification to this channel :
+		                <select></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" />Post title
+		                <input type="checkbox" />Post author
+		            </div>
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-sm-3">COMMENT</div>
+		        <div class="col-sm-9">
+		        	<input type="checkbox" class="slack_admin_checkbox" />
+		            <label>When a new comment pending approval</label>
+		            <br />
+		            <div class="disabled">Send notification to this channel :
+		                <select></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" />Post title
+		                <input type="checkbox" />Post author
+		            </div>
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-sm-3">CATEGORY</div>
+		        <div class="col-sm-9">
+		        	<input type="checkbox" class="slack_admin_checkbox" />
+		            <label>When a new category created</label>
+		            <br />
+		            <div class="disabled">Send notification to this channel :
+		                <select></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" />Category name
+		            </div>
+		            <hr />
+		            <input type="checkbox" class="slack_admin_checkbox" />
+		            <label>When a new category deleted</label>
+		            <br />
+		            <div class="disabled">Send notification to this channel :
+		                <select></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" />Category name
+		            </div>
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-sm-3">PING</div>
+		        <div class="col-sm-9">
+		        	<input type="checkbox" class="slack_admin_checkbox" />
+		            <label>When a new ping received</label>
+		            <br />
+		            <div class="disabled">Send notification to this channel :
+		                <select></select>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-sm-3">TRACKBACK</div>
+		        <div class="col-sm-9">
+		        	<input type="checkbox" class="slack_admin_checkbox" />
+		            <label>When a new trackback received</label>
+		            <br />
+		            <div class="disabled">Send notification to this channel :
+		                <select></select>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-sm-3">THEME</div>
+		        <div class="col-sm-9">
+		        	<input type="checkbox" class="slack_admin_checkbox" />
+		            <label>after_switch_theme </label>
+		            <br />
+		            <div class="disabled">Send notification to this channel :
+		                <select></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" />Theme name
+		            </div>
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-sm-3">USER</div>
+		        <div class="col-sm-9">
+		        	<input type="checkbox" class="slack_admin_checkbox" />
+		            <label>user_register </label>
+		            <br />
+		            <div class="disabled">Send notification to this channel :
+		                <select></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" />Username
+		            </div>
+		            <hr />
+		            <input type="checkbox" class="slack_admin_checkbox" />
+		            <label>delete_user </label>
+		            <br />
+		            <div class="disabled">Send notification to this channel :
+		                <select></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" />Username
+		            </div>
+		        </div>
+		    </div>
+		    <div class="row">
+		        <button type="button" class="btn btn-primary">Primary</button>
+		    </div>
+		</div>
+		</div>
+		</div>
+		<?php
+	}
+	public function load_page_bak() { 
 		if(isset($_GET["code"]))
 		{
 			$qs = "client_id=".$this->api->app_client_id."&client_secret=".$this->api->app_client_secret."&code=".$_GET["code"]."&redirect_uri=http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
@@ -119,13 +261,23 @@ class Slack_Plugin {
 		}
 	}
 
-	public function register_bootstrap()
+	public function register_scripts()
 	{
-		add_action('admin_print_scripts-settings_page_slack-for-wordpress', array($this, 'slack_plugin_admin_scripts'));
+		add_action('admin_enqueue_scripts', array($this, 'slack_plugin_admin_scripts'));
+		add_action('admin_print_styles-'.$this->page_hook, array($this, 'slack_plugin_admin_styles'));
 	}
-	public function slack_plugin_admin_scripts() {
-        wp_enqueue_script( 'bootstrap-for-slack', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' );
-        wp_enqueue_script( 'bootstrapjs-for-slack', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js', array('bootstrap-for-slack', 'jquery') );
+	public function slack_plugin_admin_scripts($hook) {
+		if($hook == $this->page_hook):
+			wp_enqueue_script('jquery');
+	        wp_enqueue_script( 'bootstrapjs-for-slack', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js', array('jquery') );
+	        wp_enqueue_script( 'slack-script-js', plugins_url('js/script.js', dirname(__FILE__)), array('bootstrapjs-for-slack', 'jquery') );
+    	endif;
+    }
+    public function slack_plugin_admin_styles() {
+        wp_enqueue_style( 'bootstrap-for-slack', plugins_url('css/bootstrap-wp.min.css', dirname(__FILE__)) );
+        wp_enqueue_style( 'slack-opensans-css', 'http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' );
+        wp_enqueue_style( 'slack-style-css', plugins_url('css/style.css', dirname(__FILE__)) );
+
     }
 
     public function register_options($ops)
