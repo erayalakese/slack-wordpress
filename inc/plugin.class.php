@@ -25,7 +25,7 @@ class Slack_Plugin {
 		<div class="bootstrap-wp-wrapper">
 		<div class="container-fluid">
 		    <div class="page-header">
-		         <h1><img src="https://slack.global.ssl.fastly.net/895d/img/landing_slack_hash_wordmark_logo.png" alt=""> <small>integration for WordPress</small></h1>
+		         <h1><img src="<?=plugins_url('img/slack.png', dirname(__FILE__))?>" alt=""> <small>integration for WordPress</small></h1>
 		    </div>
 		    <div class="row">
 		        <div class="col-sm-3">POST</div>
