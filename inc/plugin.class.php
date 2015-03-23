@@ -28,18 +28,13 @@ class Slack_Plugin {
 			$this->api->set_auth_token($_GET["code"]);
 		}
 
-		if($_POST["slack_on_publish"])
+		if($_POST["slack_options_submit"])
 		{
-			update_option("slack_on_publish", $_POST["slack_on_publish"]);
-			update_option("slack_on_publish_channel", $_POST["slack_on_publish_channel"]);
-		}
-		if($_POST["slack_on_waitingcomment"])
-		{
-			update_option("slack_on_waitingcomment", $_POST["slack_on_waitingcomment"]);
-			update_option("slack_on_waitingcomment_channel", $_POST["slack_on_waitingcomment_channel"]);
+			$this->register_options($_POST);
 		}
 
 		$channels = $this->api->get_channel_list();
+		$ops = $this->get_options();
 		?>
 
 		<div class="wrap">
@@ -67,8 +62,8 @@ class Slack_Plugin {
 					</tr>
 					<?php if($this->api->get_auth_token()) : ?>
 					<?php
-						$slack_on_publish = get_option("slack_on_publish");
-						$slack_on_publish_channel = get_option("slack_on_publish_channel")
+						$slack_on_publish = $ops->slack_on_publish;
+						$slack_on_publish_channel = $ops->slack_on_publish_channel;
 					?>
 					<tr>
 						<th>On Post Publish</th>
@@ -83,8 +78,8 @@ class Slack_Plugin {
 					</tr>
 
 					<?php
-						$slack_on_waitingcomment = get_option("slack_on_waitingcomment");
-						$slack_on_waitingcomment_channel = get_option("slack_on_waitingcomment_channel")
+						$slack_on_waitingcomment = $ops->slack_on_waitingcomment;
+						$slack_on_waitingcomment_channel = $ops->slack_on_waitingcomment_channel;
 					?>
 					<tr>
 						<th>On Pending Comment</th>
@@ -99,7 +94,7 @@ class Slack_Plugin {
 					</tr>
 					<?php endif; ?>
 					<tr>
-						<td><input type="submit" class="button-primary"></td>
+						<td><input type="submit" name="slack_options_submit" class="button-primary"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -131,6 +126,23 @@ class Slack_Plugin {
 	public function slack_plugin_admin_scripts() {
         wp_enqueue_script( 'bootstrap-for-slack', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' );
         wp_enqueue_script( 'bootstrapjs-for-slack', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js', array('bootstrap-for-slack', 'jquery') );
+    }
+
+    public function register_options($ops)
+    {
+    	if(is_array($ops)) $ops = json_encode($ops);
+
+    	update_option('slack_options', $ops);
+    }
+
+    public function get_options()
+    {
+    	$ops = get_option('slack_options');
+    	$ops_decoded = json_decode($ops);
+    	if(is_null($ops_decoded))
+    		return $ops;
+    	else
+    		return $ops_decoded;
     }
     public function getApi()
     {
