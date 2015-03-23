@@ -19,4 +19,29 @@ class SlackPlugin_Test extends WP_UnitTestCase {
 		
 	}
 
+	public function test_register_options()
+	{
+		$this->plugin->register_options(array('test'=>'data'));
+		$result = json_decode(get_option('slack_options'));
+		$this->assertObjectHasAttribute('test', $result);
+		$result = null;
+
+		$this->plugin->register_options('data');
+		$result = get_option('slack_options');
+		$this->assertEquals('data', $result);
+
+	}
+
+	public function test_get_options()
+	{
+		$this->plugin->register_options(array('test'=>'data'));
+		$result = $this->plugin->get_options();
+		$this->assertObjectHasAttribute('test', $result);
+		$result = null;
+
+		$this->plugin->register_options('data');
+		$result = $this->plugin->get_options();
+		$this->assertEquals('data', $result);
+	}
+
 }
