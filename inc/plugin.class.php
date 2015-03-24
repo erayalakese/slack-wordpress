@@ -39,7 +39,6 @@ class Slack_Plugin {
 		<div class="wrap">
 		<div class="bootstrap-wp-wrapper">
 		<div class="container-fluid">
-			<form action="" method="POST">
 		    <div class="page-header">
 		         <h1><img src="<?=plugins_url('img/slack.png', dirname(__FILE__))?>" alt=""> <small>integration for WordPress</small></h1>
 		    </div>
@@ -49,7 +48,19 @@ class Slack_Plugin {
 		        	<?php
 					if(!$this->api->get_auth_token())
 					{
-						echo "<a href=".$this->api->slack_auth_link()." class='btn btn-primary'>LOGIN TO SLACK</a>";
+						if($_GET["app_client_id"] && $_GET["app_client_secret"])
+						{
+							update_option("slack_app_client_id", $_GET["app_client_id"]);
+							update_option("slack_app_client_secret", $_GET["app_client_secret"]);
+						}
+						if(!get_option('slack_app_client_id')):
+						echo "<a href='https://api.slack.com/applications/new'>Create a new application</a><br />";
+						echo "<form action='' method='GET'><label for='app_client_id'>App Client ID</label><input type='text' name='app_client_id' />";
+						echo "<label for='app_client_secret'>App Client Secret</label><input type='text' name='app_client_secret' />";
+						echo "<input type='submit' class='btn btn-secondary' value='STEP 1 : SAVE'><input type='hidden' name='page' value='slack-for-wordpress' /></form>";
+						else :
+						echo "<a href=".$this->api->slack_auth_link()." class='btn btn-primary'>STEP 2 : LOGIN TO SLACK</a>";
+						endif;
 					}
 					else
 					{
@@ -64,6 +75,7 @@ class Slack_Plugin {
 		        </div>
 		    </div>
 		    <?php if($this->api->get_auth_token()) : ?>
+		    <form action="" method="POST">
 		    <div class="row">
 		        <div class="col-sm-3">POST</div>
 		        <div class="col-sm-9">

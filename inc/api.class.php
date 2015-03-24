@@ -4,12 +4,14 @@ class Slack_API {
 
 	private $api_url = "https://slack.com/api/";
 	private $auth_url = "https://slack.com/oauth/authorize";
-	public $app_client_id = "3759810603.4041679803";
-	public $app_client_secret = "8750528630d44d3254798ab8e32bd7c8";
+	public $app_client_id;
+	public $app_client_secret;
 	private $auth_token;
 
 	public function __construct()
 	{
+		$this->app_client_id = get_option('slack_app_client_id');
+		$this->app_client_secret = get_option('slack_app_client_secret');
 		$this->auth_token = get_option("slack_for_wp_token");
 	}
 
@@ -63,6 +65,7 @@ class Slack_API {
 	public function set_auth_token($t)
 	{
 		$this->auth_token = $t;
+		update_option("slack_for_wp_token", $t);
 	}
 	public function get_auth_token()
 	{
