@@ -154,7 +154,7 @@ class Slack_Plugin {
 		        <div class="col-sm-3">THEME</div>
 		        <div class="col-sm-9">
 		        	<input type="checkbox" <?=$ops->slack_after_switch_theme?"checked=checked":""?> name="slack_after_switch_theme" class="slack_admin_checkbox" />
-		            <label>after_switch_theme </label>
+		            <label>When theme switched </label>
 		            <br />
 		            <div class="<?=$ops->slack_after_switch_theme?"":"disabled"?>">Send notification to this channel :
 		                <select name="slack_after_switch_theme[channel]"><?=$this->print_channels_options($channels, $ops->slack_after_switch_theme)?></select>
@@ -168,7 +168,7 @@ class Slack_Plugin {
 		        <div class="col-sm-3">USER</div>
 		        <div class="col-sm-9">
 		        	<input type="checkbox" <?=$ops->slack_user_register?"checked=checked":""?> name="slack_user_register" class="slack_admin_checkbox" />
-		            <label>user_register </label>
+		            <label>When a user registered </label>
 		            <br />
 		            <div class="<?=$ops->slack_user_register?"":"disabled"?>">Send notification to this channel :
 		                <select name="slack_user_register[channel]"><?=$this->print_channels_options($channels, $ops->slack_user_register)?></select>
@@ -178,7 +178,7 @@ class Slack_Plugin {
 		            </div>
 		            <hr />
 		            <input type="checkbox" <?=$ops->slack_delete_user?"checked=checked":""?> name="slack_delete_user" class="slack_admin_checkbox" />
-		            <label>delete_user </label>
+		            <label>When a user is removed </label>
 		            <br />
 		            <div class="<?=$ops->slack_delete_user?"":"disabled"?>">Send notification to this channel :
 		                <select name="slack_delete_user[channel]"><?=$this->print_channels_options($channels, $ops->slack_delete_user)?></select>
