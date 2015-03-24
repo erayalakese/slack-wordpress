@@ -46,14 +46,12 @@ class Slack_API {
 			return false;
 	}
 
-	public function publish_post($msg)
+	public function publish_post($channel, $msg)
 	{
 		if($msg == "") $msg = "(no title)";
-		$slack_on_publish = get_option("slack_on_publish");
-		$slack_on_publish_channel = get_option("slack_on_publish_channel");
 		$url = "https://slack.com/api/chat.postMessage";
 		$url .= "?token=".$this->get_auth_token();
-		$url .= "&channel=".$slack_on_publish_channel;
+		$url .= "&channel=".$channel;
 		$url .= "&text=".urlencode($msg);
 		$url .= "&username=WordPress%20BOT";
 
