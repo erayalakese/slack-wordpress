@@ -1,16 +1,21 @@
 #![Slack](img/slack.png) <small>for WordPress</small>
 
 
+
 ----------
 
 
+
 **Build Status:** [![Build Status](https://travis-ci.org/erayalakese/slack-wordpress.svg?branch=master)](https://travis-ci.org/erayalakese/slack-wordpress)  
-**Tested with:** 3.6.1 and 4.1.1  
+**Tested with:** WordPress 3.6.1 and WordPress 4.1.1  
 **Tested with:** PHP 5.4 and PHP 5.5
 **License:** [The MIT License](http://opensource.org/licenses/MIT)
 
 
+
 ----------
+
+
 
 # FEATURES
 This plugin sends notifications when
