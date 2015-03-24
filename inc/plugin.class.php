@@ -22,7 +22,10 @@ class Slack_Plugin {
 			$c = file_get_contents("https://slack.com/api/oauth.access?".$qs);
 			$result = json_decode($c);
 			update_option("slack_for_wp_token", $result->access_token);
-			$this->api->set_auth_token($_GET["code"]);
+			$this->api->set_auth_token($result->access_token);
+		}
+		elseif ($_GET["unlink"]) {
+			$this->api->set_auth_token('');
 		}
 
 		if($_POST["slack_options_submit"])
@@ -46,7 +49,7 @@ class Slack_Plugin {
 		        	<?php
 					if(!$this->api->get_auth_token())
 					{
-						echo "<a href=".$this->api->slack_auth_link().">LOGIN TO SLACK</a>";
+						echo "<a href=".$this->api->slack_auth_link()." class='btn btn-primary'>LOGIN TO SLACK</a>";
 					}
 					else
 					{
@@ -55,6 +58,7 @@ class Slack_Plugin {
 						{
 							echo "<p>".$channel->name." (#".$channel->id.")"."</p>";
 						}
+						echo "<p><a href='?page=slack-for-wordpress&unlink=1' class='btn btn-primary'>UNLINK FROM SLACK</a></p>";
 					}
 					?>
 		        </div>
