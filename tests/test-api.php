@@ -39,12 +39,12 @@ class SlackAPI_Test extends WP_UnitTestCase {
 	public function test_publish_post()
 	{
 		$this->remove_auth_token();
-		$result = $this->plugin->getApi()->publish_post("Dump text");
+		$result = $this->plugin->getApi()->publish_post("C0422E4PG", "Dump text");
 		$this->assertFalse($result->ok);
 		$this->assertEquals($result->error, 'not_authed');
 
 		$this->set_auth_token();
-		$result = $this->plugin->getApi()->publish_post("Dump text");
+		$result = $this->plugin->getApi()->publish_post("xyz", "Dump text");
 		$this->assertFalse($result->ok);
 		$this->assertEquals($result->error, 'channel_not_found');
 	}
