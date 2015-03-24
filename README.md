@@ -6,7 +6,7 @@
 
 
 
-**Build Status:** [![Build Status](https://travis-ci.org/erayalakese/slack-wordpress.svg?branch=master)](https://travis-ci.org/erayalakese/slack-wordpress)  
+**Build Status:** [![Build Status](https://travis-ci.org/erayalakese/slack-wordpress.svg?branch=master)](https://travis-ci.org/erayalakese/slack-wordpress)          
 **Tested with:** WordPress 3.6.1 and WordPress 4.1.1  
 **Tested with:** PHP 5.4 and PHP 5.5   
 **License:** [The MIT License](http://opensource.org/licenses/MIT)
@@ -32,7 +32,7 @@ This plugin sends notifications when
  10. a user is removed
 
 # SCREENSHOTS
-![screenshot-1](img/screenshot-1.png)
-![screenshot-2](img/screenshot-2.png)
-![screenshot-3](img/screenshot-3.png)
-![screenshot-4](img/screenshot-4.png)
+![screenshot-1](assets/screenshot-1.png)
+![screenshot-2](assets/screenshot-2.png)
+![screenshot-3](assets/screenshot-3.png)
+![screenshot-4](assets/screenshot-4.png)
