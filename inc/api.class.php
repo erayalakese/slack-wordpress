@@ -16,6 +16,9 @@ class Slack_API {
 	}
 
 	public function slack_auth_link() {
+
+		if(!$this->app_client_id) $this->app_client_id = get_option('slack_app_client_id');
+		if(!$this->app_client_secret) $this->app_client_secret = get_option('slack_app_client_secret');
 		$url = $this->auth_url."?client_id=".$this->app_client_id."&redirect_uri=http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 		return $url;
 	}
