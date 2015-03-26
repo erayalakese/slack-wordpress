@@ -408,6 +408,6 @@ class Slack_Plugin {
     }
     public function getVersion()
     {
-    	return "0.0.1";
+    	return "1.0.1";
     }
 }
