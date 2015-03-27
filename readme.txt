@@ -4,13 +4,15 @@ Donate link: http://goo.gl/KTmqNL
 Tags: slack,integration,chat,api,notification,team
 Requires at least: 3.6.1
 Tested up to: 4.1.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: The MIT License
 License URI: http://opensource.org/licenses/MIT
 
 This plugin sends notifications to any Slack channel when an event triggered in WordPress.
 
 == Description ==
+
+You can contribute to this project on [GitHub](https://github.com/erayalakese/slack-wordpress "Slack WordPress Integration").    
 
 This plugin sends notifications when
 
