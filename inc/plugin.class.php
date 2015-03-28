@@ -48,14 +48,14 @@ class Slack_Plugin {
 		        	<?php
 					if(!$this->api->get_auth_token())
 					{
-						if($_GET["app_client_id"] && $_GET["app_client_secret"])
+						if($_POST["app_client_id"] && $_POST["app_client_secret"])
 						{
-							update_option("slack_app_client_id", $_GET["app_client_id"]);
-							update_option("slack_app_client_secret", $_GET["app_client_secret"]);
+							update_option("slack_app_client_id", $_POST["app_client_id"]);
+							update_option("slack_app_client_secret", $_POST["app_client_secret"]);
 						}
 						if(!get_option('slack_app_client_id')):
 						echo "<a href='https://api.slack.com/applications/new'>Create a new application</a><br />";
-						echo "<form action='' method='GET'><label for='app_client_id'>App Client ID</label><input type='text' name='app_client_id' />";
+						echo "<form action='' method='POST'><label for='app_client_id'>App Client ID</label><input type='text' name='app_client_id' />";
 						echo "<label for='app_client_secret'>App Client Secret</label><input type='text' name='app_client_secret' />";
 						echo "<input type='submit' class='btn btn-secondary' value='STEP 1 : SAVE'><input type='hidden' name='page' value='slack-for-wordpress' /></form>";
 						else :
