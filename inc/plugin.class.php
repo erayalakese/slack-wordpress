@@ -25,7 +25,7 @@ class Slack_Plugin {
 			$this->api->set_auth_token($result->access_token);
 		}
 		elseif ($_GET["unlink"]) {
-			$this->api->set_auth_token('');
+			$this->api->slack_logout();
 		}
 
 		if($_POST["slack_options_submit"])
@@ -60,6 +60,7 @@ class Slack_Plugin {
 						echo "<input type='submit' class='btn btn-secondary' value='STEP 1 : SAVE'><input type='hidden' name='page' value='slack-for-wordpress' /></form>";
 						else :
 						echo "<a href=".$this->api->slack_auth_link()." class='btn btn-primary'>STEP 2 : LOGIN TO SLACK</a>";
+						echo "<p><a href='?page=slack-for-wordpress&unlink=1' class='btn btn-primary'>UNLINK FROM SLACK</a></p>";
 						endif;
 					}
 					else

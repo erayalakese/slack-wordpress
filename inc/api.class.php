@@ -23,7 +23,12 @@ class Slack_API {
 		return $url;
 	}
 
-	
+	public function slack_logout() {
+		$this->set_auth_token('');
+		delete_option('slack_app_client_id');
+		delete_option('slack_app_client_secret');
+		delete_option("slack_for_wp_token");
+	}
 
 	public function get_channel_list()
 	{
