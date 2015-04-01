@@ -4,6 +4,7 @@ class Slack_API {
 
 	private $api_url = "https://slack.com/api/";
 	private $auth_url = "https://slack.com/oauth/authorize";
+	private $api_method = "chat.postMessage";
 	public $app_client_id;
 	public $app_client_secret;
 	private $auth_token;
@@ -43,7 +44,7 @@ class Slack_API {
 			return false;
 	}
 
-	public function publish_post($channel, $msg)
+/* 	public function publish_post($channel, $msg)
 	{
 		if($msg == "") $msg = "(no title)";
 		$url = "https://slack.com/api/chat.postMessage";
@@ -55,6 +56,36 @@ class Slack_API {
 		$result = json_decode(file_get_contents($url));
 		return $result;
 
+	} */
+	
+	public function publish_post($channel, $msg)
+	{
+		if (! is_array($msg) || empty($channel)) return false;
+		$url = $this->api_url . $this->api_method . '/';
+		$attachments = array('fallback' => $msg['author'] . '張貼了一篇新文章：' . $msg['title'] . '。',
+						'pretext' =>  $msg['author'] . '張貼了一篇新文章',
+						'title' => $msg['title'],
+						'title_link' => $msg['title_link'],
+						'text' => $msg['text']
+		);
+		$post_data = array('token' => $this->get_auth_token(),
+				'channel' => $channel,
+				'username' => 'WordPressBOT',
+				'attachments' => json_encode(array($attachments))
+		);
+		
+		$ch = curl_init();
+		$setting = array(
+				CURLOPT_URL => $url,
+				CURLOPT_RETURNTRANSFER => FALSE,
+				CURLOPT_POST => TRUE,
+				CURLOPT_POSTFIELDS => $data,
+				CURLOPT_SSL_VERIFYPEER => FALSE
+		);
+		curl_setopt_array($ch, $setting);
+		$response = curl_exec($ch);
+		curl_close($ch);
+		return $response;
 	}
 
 	public function set_auth_token($t)

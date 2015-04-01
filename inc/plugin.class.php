@@ -222,17 +222,16 @@ class Slack_Plugin {
 	public function publish_post_hook($postID)
 	{
 		$hooks = $this->get_options();
-
-		$msg = ($hooks->slack_publish_post->post_title=='on'?get_the_title($postID):'A new post');
-		$msg .= " published.\n";
-		$msg .= ($hooks->slack_publish_post->post_author=='on'?' Author '.get_the_author_meta('display_name', get_post($postID)->post_author)."\n":'');
-		$msg .= get_permalink($postID);
+		$msg = array('author' => get_the_author_meta('display_name', get_post($postID)->post_author),
+				'title' => get_the_title($postID),
+				'title_link' => get_permalink($postID),
+				'text' => get_the_content($postID)
+				);
 		$this->api->publish_post($hooks->slack_publish_post->channel, $msg);
 	}
 	public function trashed_post_hook($postID)
 	{
 		$hooks = $this->get_options();
-
 		$msg = ($hooks->slack_trashed_post->post_title=='on'?get_the_title($postID):'A post');
 		$msg .= " deleted.\n";
 		$msg .= ($hooks->slack_trashed_post->post_author=='on'?' Author '.get_the_author_meta('display_name', get_post($postID)->post_author)."\n":'');
