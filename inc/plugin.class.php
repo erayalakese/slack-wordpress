@@ -222,10 +222,13 @@ class Slack_Plugin {
 	public function publish_post_hook($postID)
 	{
 		$hooks = $this->get_options();
-		$msg = array('author' => get_the_author_meta('display_name', get_post($postID)->post_author),
-				'title' => get_the_title($postID),
+		$post = get_post($postID);
+		$msg = array('author' => get_the_author_meta('display_name', $post->post_author),
+				'title' => $post->post_title,
 				'title_link' => get_permalink($postID),
-				'text' => get_the_content($postID)
+				'text' => substr($post->post_content, 0, 30),
+				'color' => 'good',
+				'date' => $post->post_date,
 				);
 		$this->api->publish_post($hooks->slack_publish_post->channel, $msg);
 	}
