@@ -67,7 +67,7 @@ class Slack_API {
 						'title' => $msg['title'],
 						'title_link' => $msg['title_link'],
 						'text' => $msg['text']
-		);
+						);
 		$post_data = array('token' => $this->get_auth_token(),
 				'channel' => $channel,
 				'username' => 'WordPressBOT',
@@ -79,7 +79,7 @@ class Slack_API {
 				CURLOPT_URL => $url,
 				CURLOPT_RETURNTRANSFER => TRUE,
 				CURLOPT_POST => TRUE,
-				CURLOPT_POSTFIELDS => $data,
+				CURLOPT_POSTFIELDS => $post_data,
 				CURLOPT_SSL_VERIFYPEER => FALSE
 		);
 		curl_setopt_array($ch, $setting);
