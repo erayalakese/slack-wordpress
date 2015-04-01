@@ -62,8 +62,8 @@ class Slack_API {
 	{
 		if (! is_array($msg) || empty($channel)) return false;
 		$url = $this->api_url . $this->api_method . '/';
-		$attachments = array('fallback' => $msg['author'] . '±i¶K¤F¤@½g·s¤å³¹¡G' . $msg['title'] . '¡C',
-						'pretext' =>  $msg['author'] . '±i¶K¤F¤@½g·s¤å³¹',
+		$attachments = array('fallback' => $msg['author'] . 'å¼µè²¼äº†ä¸€ç¯‡æ–°æ–‡ç« ï¼š' . $msg['title'] . 'ã€‚',
+						'pretext' =>  $msg['author'] . 'å¼µè²¼äº†ä¸€ç¯‡æ–°æ–‡ç« ',
 						'title' => $msg['title'],
 						'title_link' => $msg['title_link'],
 						'text' => $msg['text']
@@ -77,7 +77,7 @@ class Slack_API {
 		$ch = curl_init();
 		$setting = array(
 				CURLOPT_URL => $url,
-				CURLOPT_RETURNTRANSFER => FALSE,
+				CURLOPT_RETURNTRANSFER => TRUE,
 				CURLOPT_POST => TRUE,
 				CURLOPT_POSTFIELDS => $data,
 				CURLOPT_SSL_VERIFYPEER => FALSE
