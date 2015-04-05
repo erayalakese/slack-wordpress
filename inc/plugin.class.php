@@ -37,6 +37,17 @@ class Slack_Plugin {
 		$ops = $this->get_options();
 		?>
 		<div class="wrap">
+		<div id="reklam"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!-- wp-slack Plugin Admin Page -->
+		<ins class="adsbygoogle"
+		     style="display:block"
+		     data-ad-client="ca-pub-9792205570091420"
+		     data-ad-slot="2441051284"
+		     data-ad-format="auto"></ins>
+		<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+		</div>
 		<div class="bootstrap-wp-wrapper">
 		<div class="container-fluid">
 		    <div class="page-header">
