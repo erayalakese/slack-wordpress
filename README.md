@@ -15,6 +15,8 @@
 
 ----------
 
+# REQUIREMENTS
+1. `short_open_tag` must be enabled in *php.ini* file, it's usually enabled by default. If not, [check this].(http://php.net/manual/en/ini.core.php#ini.short-open-tag)
 
 
 # FEATURES
