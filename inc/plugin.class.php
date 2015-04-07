@@ -370,7 +370,7 @@ class Slack_Plugin {
     {
     	$hooks = $this->get_options();
 
-    	if(is_array($hooks)) :
+    	if(is_object($hooks)) :
     	if($hooks->slack_publish_post)
     	{
     		add_action('publish_post', array($this, 'publish_post_hook'));
