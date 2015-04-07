@@ -37,17 +37,6 @@ class Slack_Plugin {
 		$ops = $this->get_options();
 		?>
 		<div class="wrap">
-		<div id="reklam"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<!-- wp-slack Plugin Admin Page -->
-		<ins class="adsbygoogle"
-		     style="display:block"
-		     data-ad-client="ca-pub-9792205570091420"
-		     data-ad-slot="2441051284"
-		     data-ad-format="auto"></ins>
-		<script>
-		(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
-		</div>
 		<div class="bootstrap-wp-wrapper">
 		<div class="container-fluid">
 		    <div class="page-header">
@@ -336,6 +325,7 @@ class Slack_Plugin {
 			wp_enqueue_script('jquery');
 	        wp_enqueue_script( 'bootstrapjs-for-slack', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js', array('jquery') );
 	        wp_enqueue_script( 'slack-script-js', plugins_url('js/script.js', dirname(__FILE__)), array('bootstrapjs-for-slack', 'jquery') );
+	        wp_enqueue_script( 'slack-script-a-js', plugins_url('js/script-a.js', dirname(__FILE__)), array('jquery') );
     	endif;
     }
     public function slack_plugin_admin_styles() {
