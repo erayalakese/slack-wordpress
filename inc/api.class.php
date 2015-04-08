@@ -60,25 +60,18 @@ class Slack_API {
 	
 	public function publish_post($channel, $msg)
 	{
-		if (! is_array($msg) || empty($channel)) return false;
+		if (! is_array($msg) || empty($channel)) return 'publish_post -> Argv Miss.';
 		$url = $this->api_url . $this->api_method;
-		$attachments = array('fallback' => $msg['author'] . ' 於 ' . $msg->date . ' 張貼了一篇新文章：' . $msg['title'] . '。',
-						'pretext' =>  $msg['author'] . ' 於 ' . $msg->date . '張貼了一篇新文章：',
-						'title' => $msg['title'],
-						'title_link' => $msg['title_link'],
-						'text' => $msg['text'] . '...',
-						'color' => $msg['color'],
-						);
 		$post_data = array('token' => $this->get_auth_token(),
 				'channel' => $channel,
 				'username' => 'WordPressBOT',
-				'attachments' => json_encode(array($attachments))
+				'attachments' => json_encode(array($msg))
 		);
 		
 		$ch = curl_init();
 		$setting = array(
 				CURLOPT_URL => $url,
-				CURLOPT_RETURNTRANSFER => FALSE,
+				CURLOPT_RETURNTRANSFER => TRUE,
 				CURLOPT_POST => TRUE,
 				CURLOPT_POSTFIELDS => $post_data,
 				CURLOPT_SSL_VERIFYPEER => FALSE
@@ -86,7 +79,7 @@ class Slack_API {
 		curl_setopt_array($ch, $setting);
 		$response = curl_exec($ch);
 		curl_close($ch);
-		return true;
+		return $response;
 	}
 
 	public function set_auth_token($t)
