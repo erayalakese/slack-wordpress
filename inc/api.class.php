@@ -44,20 +44,6 @@ class Slack_API {
 			return false;
 	}
 
-/* 	public function publish_post($channel, $msg)
-	{
-		if($msg == "") $msg = "(no title)";
-		$url = "https://slack.com/api/chat.postMessage";
-		$url .= "?token=".$this->get_auth_token();
-		$url .= "&channel=".$channel;
-		$url .= "&text=".urlencode($msg);
-		$url .= "&username=WordPress%20BOT";
-
-		$result = json_decode(file_get_contents($url));
-		return $result;
-
-	} */
-	
 	public function publish_post($channel, $msg)
 	{
 		if (! is_array($msg) || empty($channel)) return 'publish_post -> Argv Miss.';
@@ -67,8 +53,10 @@ class Slack_API {
 				'username' => 'WordPressBOT',
 				'attachments' => json_encode(array($msg))
 		);
-		
-		$ch = curl_init();
+//		usleep(100);
+		file_put_contents('post_data.tmp', http_build_query($post_data));
+		exec("curl -X POST -d @post_data.tmp {$url} > /dev/null 2>/dev/null &");
+/* 		$ch = curl_init();
 		$setting = array(
 				CURLOPT_URL => $url,
 				CURLOPT_RETURNTRANSFER => TRUE,
@@ -79,7 +67,7 @@ class Slack_API {
 		curl_setopt_array($ch, $setting);
 		$response = curl_exec($ch);
 		curl_close($ch);
-		return $response;
+		return $response; */
 	}
 
 	public function set_auth_token($t)
