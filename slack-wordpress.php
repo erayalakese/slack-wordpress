@@ -16,6 +16,7 @@ function activate()
 }
 //register_activation_hook(__FILE__, 'activate');
 
-$plugin = new Slack_Plugin();
+global $slack_plugin;
+$slack_plugin = new Slack_Plugin();
 
 ?>
