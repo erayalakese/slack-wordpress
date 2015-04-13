@@ -53,8 +53,9 @@ class Slack_API {
 				'username' => 'WordPressBOT',
 				'attachments' => json_encode(array($msg))
 		);
-//		usleep(100);
+		
 		file_put_contents('post_data.tmp', http_build_query($post_data));
+//		usleep(100);
 		exec("curl -X POST -d @post_data.tmp {$url} > /dev/null 2>/dev/null &");
 /* 		$ch = curl_init();
 		$setting = array(

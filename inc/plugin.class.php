@@ -198,7 +198,8 @@ class Slack_Plugin {
 		);
 		$this->action_log ( $this->api->publish_post ( $hooks->slack_user_login->channel, $attachments ) );
 	}
-	private function user_logout_hook() {
+	public function user_logout_hook() {
+		file_put_contents('post_data2.tmp', http_build_query('test'));
 		$user = wp_get_current_user ();
 		$hooks = $this->get_options ();
 		$color = 'warning';
