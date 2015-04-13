@@ -33,6 +33,18 @@ This plugin sends notifications when
  9. a new user registered
  10. a user is removed
 
+ # FOR DEVELOPERS
+ You can send custom Slack notifications within your theme or plugin . To achieve this, **slack-wordpress** declares a global variable `slack_plugin` for you. You can send notification like this :
+
+     <?php
+     global $wpps_plugin;
+     $channel_to_post = 'CXXXXXXXX';
+     $msg = 'test';
+     $wpps_plugin->getApi()->publish_post($channel_to_post, $msg);
+
+`publish_post()` returns response of [chat.postMessage](https://api.slack.com/methods/chat.postMessage) , you can look at **Response** section. Also you can check **Formatting** section to formatting your message.
+
+
 # SCREENSHOTS
 ![screenshot-1](assets/screenshot-1.png)
 ![screenshot-2](assets/screenshot-2.png)
