@@ -97,6 +97,17 @@ class Slack_Plugin {
 		                <input type="checkbox" <?=$ops->slack_publish_post->post_author?"checked=checked":""?> name="slack_publish_post[post_author]" />Post author
 		            </div>
 		            <hr />
+		            <input type="checkbox" name="slack_update_post" <?=$ops->slack_update_post?"checked=checked":""?> class="slack_admin_checkbox" />
+		            <label>When a post updated.</label>
+		            <br />
+		            <div class="<?=$ops->slack_update_post?"":"disabled"?>">Send notification to this channel :
+		                <select name="slack_update_post[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_update_post)?></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" <?=$ops->slack_update_post->post_title?"checked=checked":""?> name="slack_update_post[post_title]" />Post title
+		                <input type="checkbox" <?=$ops->slack_update_post->post_editor?"checked=checked":""?> name="slack_update_post[post_editor]" />Post editor
+		            </div>
+		            <hr />
 		            <input type="checkbox" name="slack_trashed_post" <?=$ops->slack_trashed_post?"checked=checked":""?> class="slack_admin_checkbox" />
 		            <label>When a post deleted</label>
 		            <br />
@@ -226,15 +237,34 @@ class Slack_Plugin {
 		endforeach;
 	}
 
-	public function publish_post_hook($postID)
+	public function publish_post_hook($strNewStatus, $strOldStatus, $post)
 	{
-		$hooks = $this->get_options();
+		if ( (defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE) ) {
+			return;
+		}
+		
+		if( ( $strOldStatus == 'draft' || $strOldStatus == 'auto-draft' || $strOldStatus == 'new' ) && $strNewStatus == 'publish' ) :
+			// New post published
+			$hooks = $this->get_options();
 
-		$msg = ($hooks->slack_publish_post->post_title=='on'?get_the_title($postID):'A new post');
-		$msg .= " published.\n";
-		$msg .= ($hooks->slack_publish_post->post_author=='on'?' Author '.get_the_author_meta('display_name', get_post($postID)->post_author)."\n":'');
-		$msg .= get_permalink($postID);
-		$this->api->publish_post($hooks->slack_publish_post->channel, $msg);
+			$msg = ($hooks->slack_publish_post->post_title=='on'?get_the_title($post->ID):'A new post');
+			$msg .= " published.\n";
+			$msg .= ($hooks->slack_publish_post->post_author=='on'?' Author '.get_the_author_meta('display_name', get_post($post->ID)->post_author)."\n":'');
+			$msg .= get_permalink($post->ID);
+			$this->api->publish_post($hooks->slack_publish_post->channel, $msg);
+			
+		elseif( $strOldStatus == 'publish' && $strNewStatus == 'publish') :
+			// Post updated
+			$hooks = $this->get_options();
+		
+			// Find real user who edit post, instead of author of post.
+			$current_user = wp_get_current_user();
+			$msg = ($hooks->slack_update_post->post_title=='on'?get_the_title($post->ID):'A post/page');
+			$msg .= " was updated.\n";
+			$msg .= ($hooks->slack_update_post->post_editor=='on'?"Editor: {$current_user->display_name} \n":'');
+			$msg .= get_permalink($post->ID);
+			$this->api->publish_post($hooks->slack_update_post->channel, $msg);
+		endif;
 	}
 	public function trashed_post_hook($postID)
 	{
@@ -368,9 +398,9 @@ class Slack_Plugin {
     	$hooks = $this->get_options();
 
     	if(is_object($hooks)) :
-    	if($hooks->slack_publish_post)
+    	if($hooks->slack_publish_post || $hooks->slack_update_post)
     	{
-    		add_action('publish_post', array($this, 'publish_post_hook'));
+    		add_action('transition_post_status', array($this, 'publish_post_hook'), 10, 3);
     	}
     	if($hooks->slack_trashed_post)
     	{
