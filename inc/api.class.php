@@ -43,6 +43,19 @@ class Slack_API {
 			return false;
 	}
 
+	public function get_group_list()
+	{
+		$url = "https://slack.com/api/groups.list";
+		$url .= "?exclude_archived=1&token=".$this->get_auth_token();
+		$c = file_get_contents($url);
+		$result = json_decode($c);
+
+		if(isset($result->groups))
+			return $result->groups;
+		else
+			return false;
+	}
+
 	public function publish_post($channel, $msg)
 	{
 		if($msg == "") $msg = "(no title)";

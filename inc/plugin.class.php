@@ -34,6 +34,8 @@ class Slack_Plugin {
 		}
 
 		$channels = $this->api->get_channel_list();
+		$groups = $this->api->get_group_list();
+		$all_channels = array_merge($channels,$groups);
 		$ops = $this->get_options();
 		?>
 		<div class="wrap">
@@ -70,6 +72,10 @@ class Slack_Plugin {
 						{
 							echo "<p>".$channel->name." (#".$channel->id.")"."</p>";
 						}
+						foreach($groups as $group)
+						{
+							echo "<p>".$group->name." (#".$group->id.")"." <span style='color:red;font-weight: bold'>(private)</span></p>";
+						}
 						echo "<p><a href='?page=slack-for-wordpress&unlink=1' class='btn btn-primary'>UNLINK FROM SLACK</a></p>";
 					}
 					?>
@@ -84,7 +90,7 @@ class Slack_Plugin {
 		            <label>When a post published</label>
 		            <br />
 		            <div class="<?=$ops->slack_publish_post?"":"disabled"?>">Send notification to this channel :
-		                <select name="slack_publish_post[channel]"><?=$this->print_channels_options($channels, $ops->slack_publish_post)?></select>
+		                <select name="slack_publish_post[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_publish_post)?></select>
 		                <br />And add these datas :
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_publish_post->post_title?"checked=checked":""?> name="slack_publish_post[post_title]" />Post title
@@ -95,7 +101,7 @@ class Slack_Plugin {
 		            <label>When a post deleted</label>
 		            <br />
 		            <div class="<?=$ops->slack_trashed_post?"":"disabled"?>">Send notification to this channel :
-		                <select name="slack_trashed_post[channel]"><?=$this->print_channels_options($channels, $ops->slack_trashed_post)?></select>
+		                <select name="slack_trashed_post[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_trashed_post)?></select>
 		                <br />And add these datas :
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_trashed_post->post_title?"checked=checked":""?> name="slack_trashed_post[post_title]" />Post title
@@ -110,7 +116,7 @@ class Slack_Plugin {
 		            <label>When a new comment pending approval</label>
 		            <br />
 		            <div class="<?=$ops->slack_wp_insert_comment?"":"disabled"?>">Send notification to this channel :
-		                <select name="slack_wp_insert_comment[channel]"><?=$this->print_channels_options($channels, $ops->slack_wp_insert_comment)?></select>
+		                <select name="slack_wp_insert_comment[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_wp_insert_comment)?></select>
 		                <br />And add these datas :
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_wp_insert_comment->post_title?"checked=checked":""?> name="slack_wp_insert_comment[post_title]" />Post title
@@ -124,7 +130,7 @@ class Slack_Plugin {
 		            <label>When a new category created</label>
 		            <br />
 		            <div class="<?=$ops->slack_create_category?"":"disabled"?>">Send notification to this channel :
-		                <select name="slack_create_category[channel]"><?=$this->print_channels_options($channels, $ops->slack_create_category)?></select>
+		                <select name="slack_create_category[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_create_category)?></select>
 		                <br />And add these datas :
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_create_category->category_name?"checked=checked":""?> name="slack_create_category[category_name]" />Category name
@@ -134,7 +140,7 @@ class Slack_Plugin {
 		            <label>When a new category deleted</label>
 		            <br />
 		            <div class="<?=$ops->slack_create_category?"":"disabled"?>">Send notification to this channel :
-		                <select name="slack_delete_category[channel]"><?=$this->print_channels_options($channels, $ops->slack_delete_category)?></select>
+		                <select name="slack_delete_category[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_delete_category)?></select>
 		                <br />And add these datas :
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_delete_category->category_name?"checked=checked":""?> name="slack_delete_category[category_name]" />Category name
@@ -148,7 +154,7 @@ class Slack_Plugin {
 		            <label>When a new ping received</label>
 		            <br />
 		            <div class="<?=$ops->slack_pingback_post?"":"disabled"?>">Send notification to this channel :
-		                <select name="slack_pingback_post[channel]"><?=$this->print_channels_options($channels, $ops->slack_pingback_post)?></select>
+		                <select name="slack_pingback_post[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_pingback_post)?></select>
 		            </div>
 		        </div>
 		    </div>
@@ -159,7 +165,7 @@ class Slack_Plugin {
 		            <label>When a new trackback received</label>
 		            <br />
 		            <div class="<?=$ops->slack_trackback_post?"":"disabled"?>">Send notification to this channel :
-		                <select name="slack_trackback_post[channel]"><?=$this->print_channels_options($channels, $ops->slack_trackback_post)?></select>
+		                <select name="slack_trackback_post[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_trackback_post)?></select>
 		            </div>
 		        </div>
 		    </div>
@@ -170,7 +176,7 @@ class Slack_Plugin {
 		            <label>When theme switched </label>
 		            <br />
 		            <div class="<?=$ops->slack_after_switch_theme?"":"disabled"?>">Send notification to this channel :
-		                <select name="slack_after_switch_theme[channel]"><?=$this->print_channels_options($channels, $ops->slack_after_switch_theme)?></select>
+		                <select name="slack_after_switch_theme[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_after_switch_theme)?></select>
 		                <br />And add these datas :
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_after_switch_theme->theme_name?"checked=checked":""?> name="slack_after_switch_theme[theme_name]" />Theme name
@@ -184,7 +190,7 @@ class Slack_Plugin {
 		            <label>When a user registered </label>
 		            <br />
 		            <div class="<?=$ops->slack_user_register?"":"disabled"?>">Send notification to this channel :
-		                <select name="slack_user_register[channel]"><?=$this->print_channels_options($channels, $ops->slack_user_register)?></select>
+		                <select name="slack_user_register[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_user_register)?></select>
 		                <br />And add these datas :
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_user_register->username?"checked=checked":""?> name="slack_user_register[username]" />Username
@@ -194,7 +200,7 @@ class Slack_Plugin {
 		            <label>When a user is removed </label>
 		            <br />
 		            <div class="<?=$ops->slack_delete_user?"":"disabled"?>">Send notification to this channel :
-		                <select name="slack_delete_user[channel]"><?=$this->print_channels_options($channels, $ops->slack_delete_user)?></select>
+		                <select name="slack_delete_user[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_delete_user)?></select>
 		                <br />And add these datas :
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_delete_user->username?"checked=checked":""?> name="slack_delete_user[username]" />Username
@@ -212,10 +218,11 @@ class Slack_Plugin {
 		<?php
 	}
 
-	public function print_channels_options($channels, $ops)
+	public function print_channels_options($all_channels, $ops)
 	{
-		foreach($channels as $channel) :
-		echo '<option value="'.$channel->id.'" '.($ops->channel==$channel->id?"selected=selected":"").'>'.$channel->name.'</option>';
+		// Warning! $all_channels contains public channels AND private channels (groups)
+		foreach($all_channels as $channel) :
+		echo '<option value="'.$channel->id.'" '.($ops->channel==$channel->id?"selected=selected":"").'>'.$channel->name.($channel->is_group?" (private)":"").'</option>';
 		endforeach;
 	}
 

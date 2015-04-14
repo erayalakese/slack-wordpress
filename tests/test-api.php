@@ -36,6 +36,20 @@ class SlackAPI_Test extends WP_UnitTestCase {
 			$this->assertObjectHasAttribute("is_channel", $channel);
 		}
 	}
+	public function test_get_group_list()
+	{ 
+		$this->remove_auth_token();
+		$groups = $this->plugin->getApi()->get_group_list();
+		$this->assertFalse($groups);
+
+
+		$this->set_auth_token();
+		$groups = $this->plugin->getApi()->get_group_list();
+		foreach($groups as $group)
+		{
+			$this->assertObjectHasAttribute("is_group", $group);
+		}
+	}
 	public function test_publish_post()
 	{
 		$this->remove_auth_token();
