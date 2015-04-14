@@ -97,6 +97,17 @@ class Slack_Plugin {
 		                <input type="checkbox" <?=$ops->slack_publish_post->post_author?"checked=checked":""?> name="slack_publish_post[post_author]" />Post author
 		            </div>
 		            <hr />
+		            <input type="checkbox" name="slack_update_post" <?=$ops->slack_update_post?"checked=checked":""?> class="slack_admin_checkbox" />
+		            <label>When a post updated.</label>
+		            <br />
+		            <div class="<?=$ops->slack_update_post?"":"disabled"?>">Send notification to this channel :
+		                <select name="slack_update_post[channel]"><?=$this->print_channels_options($channels, $ops->slack_update_post)?></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" <?=$ops->slack_update_post->post_title?"checked=checked":""?> name="slack_update_post[post_title]" />Post title
+		                <input type="checkbox" <?=$ops->slack_update_post->post_editor?"checked=checked":""?> name="slack_update_post[post_editor]" />Post editor
+		            </div>
+		            <hr />
 		            <input type="checkbox" name="slack_trashed_post" <?=$ops->slack_trashed_post?"checked=checked":""?> class="slack_admin_checkbox" />
 		            <label>When a post deleted</label>
 		            <br />
@@ -236,6 +247,17 @@ class Slack_Plugin {
 		$msg .= get_permalink($postID);
 		$this->api->publish_post($hooks->slack_publish_post->channel, $msg);
 	}
+	public function update_post_hook($postID)
+	{
+		$hooks = $this->get_options();
+		
+		$current_user = wp_get_current_user();
+		$msg = ($hooks->slack_publish_post->post_title=='on'?get_the_title($postID):'A post/page');
+		$msg .= " was updated.\n";
+		$msg .= ($hooks->slack_publish_post->post_editor=='on'?"Editor: $current_user \n":'');
+		$msg .= get_permalink($postID);
+		$this->api->publish_post($hooks->slack_publish_post->channel, $msg);
+	}
 	public function trashed_post_hook($postID)
 	{
 		$hooks = $this->get_options();
@@ -370,8 +392,12 @@ class Slack_Plugin {
     	if(is_object($hooks)) :
     	if($hooks->slack_publish_post)
     	{
-    		add_action('publish_post', array($this, 'publish_post_hook'));
+    		add_action('draft_to_publish', array($this, 'publish_post_hook'));
     	}
+    	if ($hooks->slack_update_post)
+    	{
+		add_action ( 'publish_to_publish', array ($this, 'update_post_hook' ));
+	}
     	if($hooks->slack_trashed_post)
     	{
     		add_action('trashed_post', array($this, 'trashed_post_hook'));
