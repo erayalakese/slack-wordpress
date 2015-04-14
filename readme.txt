@@ -4,11 +4,11 @@ Donate link: http://goo.gl/KTmqNL
 Tags: slack,integration,chat,api,notification,team
 Requires at least: 3.6.1
 Tested up to: 4.1.1
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: The MIT License
 License URI: http://opensource.org/licenses/MIT
 
-This plugin sends notifications to any Slack channel when an event triggered in WordPress.
+This plugin sends notifications to any Slack channel (public or private) when an event triggered in WordPress.
 
 == Description ==
 
@@ -17,15 +17,16 @@ You can contribute to this project on [GitHub](https://github.com/erayalakese/sl
 This plugin sends notifications when
 
  1. a new post published
- 2. a post deleted
- 3. a new comment pending approval 
- 4. a new category created 
- 5. a new category deleted
- 6. a new ping received 
- 7. a new trackback received 
- 8. theme switched
- 9. a new user registered
- 10. a user is removed
+ 2. a post updated (**new**)
+ 3. a post deleted
+ 4. a new comment pending approval 
+ 5. a new category created 
+ 6. a new category deleted
+ 7. a new ping received 
+ 8. a new trackback received 
+ 9. theme switched
+ 10. a new user registered
+ 11. a user is removed
 
  = FOR DEVELOPERS =
  You can send custom Slack notifications within your theme or plugin . To achieve this, **slack-wordpress** declares a global variable `slack_plugin` for you. You can send notification like this :
@@ -48,6 +49,10 @@ This plugin sends notifications when
 6. Now you can configure Slack on *Settings > Slack* page.
 
 == Changelog ==
+
+= 1.3.0 =
+* Support for private channels (groups)
+* Different notifications to different channels for new post publish and post update
 
 = 1.2.0 =
 * Provided a global variable so developers can send custom Slack notifications within their plugin / theme
