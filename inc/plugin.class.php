@@ -223,6 +223,8 @@ class Slack_Plugin {
 		    </div>
 			<?php endif; ?>
 		    </form>
+		    <hr />
+		    <span style="float:right;text-align:right">This plugin developed by a Slack user, <a href="http://www.erayalakese.com">Eray Alakese</a>. It's not created by, affiliated with, or supported by Slack Technologies, Inc.</span>
 		</div>
 		</div>
 		</div>
