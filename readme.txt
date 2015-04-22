@@ -3,7 +3,7 @@ Contributors: erayalakese
 Donate link: http://goo.gl/KTmqNL
 Tags: slack,integration,chat,api,notification,team
 Requires at least: 3.6.1
-Tested up to: 4.1.1
+Tested up to: 4.2
 Stable tag: 1.3.1
 License: The MIT License
 License URI: http://opensource.org/licenses/MIT

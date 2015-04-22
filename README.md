@@ -7,7 +7,7 @@
 
 
 **Build Status:** [![Build Status](https://travis-ci.org/erayalakese/slack-wordpress.svg?branch=master)](https://travis-ci.org/erayalakese/slack-wordpress)          
-**Tested with:** WordPress 3.6.1 and WordPress 4.1.1  
+**Tested with:** WordPress 3.6.1 and WordPress 4.1.1  **and ready for WordPress 4.2**
 **Tested with:** PHP 5.4 and PHP 5.5   
 **License:** [The MIT License](http://opensource.org/licenses/MIT)
 
