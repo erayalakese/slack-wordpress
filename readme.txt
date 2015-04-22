@@ -12,7 +12,7 @@ This plugin sends notifications to any Slack channel (public or private) when an
 
 == Description ==
 
-You can contribute to this project on [GitHub](https://github.com/erayalakese/slack-wordpress "Slack WordPress Integration").    
+You can contribute to this project on [GitHub](https://github.com/erayalakese/slack-wordpress "Slack WordPress Integration"). **And yes you can send your new feature requests to [here](https://github.com/erayalakese/slack-wordpress/issues)**.    
 
 This plugin sends notifications when
 
