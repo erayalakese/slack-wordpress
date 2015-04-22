@@ -10,28 +10,13 @@ class Slack_Plugin {
 		$this->api = new Slack_API();
 		$this->register_scripts();
 		$this->register_hooks();
+
+		add_action('admin_init', array($this, 'http_requests'));
 	}
 	public function register_menu_page() {
 		add_options_page("Slack", "Slack", "manage_options", "slack-for-wordpress", array($this, 'load_page'));
 	}
 	public function load_page() {
-
-		if(isset($_GET["code"]))
-		{
-			$qs = "client_id=".$this->api->app_client_id."&client_secret=".$this->api->app_client_secret."&code=".$_GET["code"]."&redirect_uri=http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-			$c = file_get_contents("https://slack.com/api/oauth.access?".$qs);
-			$result = json_decode($c);
-			update_option("slack_for_wp_token", $result->access_token);
-			$this->api->set_auth_token($result->access_token);
-		}
-		elseif ($_GET["unlink"]) {
-			$this->api->slack_logout();
-		}
-
-		if($_POST["slack_options_submit"])
-		{
-			$this->register_options($_POST);
-		}
 
 		$channels = $this->api->get_channel_list();
 		if(!$channels) $channels = array();
@@ -52,11 +37,7 @@ class Slack_Plugin {
 		        	<?php
 					if(!$this->api->get_auth_token())
 					{
-						if($_POST["app_client_id"] && $_POST["app_client_secret"])
-						{
-							update_option("slack_app_client_id", $_POST["app_client_id"]);
-							update_option("slack_app_client_secret", $_POST["app_client_secret"]);
-						}
+						
 						if(!get_option('slack_app_client_id')):
 						echo "<a href='https://api.slack.com/applications/new'>Create a new application</a><br />";
 						echo "<form action='' method='POST'><label for='app_client_id'>App Client ID</label><input type='text' name='app_client_id' />";
@@ -443,6 +424,36 @@ class Slack_Plugin {
     		add_action('delete_user', array($this, 'delete_user_hook'));
     	}
     	endif;
+    }
+
+    public function http_requests()
+    {
+    	if(isset($_GET["code"]))
+		{
+			$qs = "client_id=".$this->api->app_client_id."&client_secret=".$this->api->app_client_secret."&code=".$_GET["code"]."&redirect_uri=http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+			$c = file_get_contents("https://slack.com/api/oauth.access?".$qs);
+			$result = json_decode($c);
+			update_option("slack_for_wp_token", $result->access_token);
+			$this->api->set_auth_token($result->access_token);
+
+			wp_safe_redirect('options-general.php?page=slack-for-wordpress');
+			exit;
+		}
+		elseif ($_GET["unlink"]) {
+			$this->api->slack_logout();
+
+			wp_safe_redirect('options-general.php?page=slack-for-wordpress');
+			exit;
+		}
+		else if($_POST["slack_options_submit"])
+		{
+			$this->register_options($_POST);
+		}
+		else if($_POST["app_client_id"] && $_POST["app_client_secret"])
+		{
+			update_option("slack_app_client_id", $_POST["app_client_id"]);
+			update_option("slack_app_client_secret", $_POST["app_client_secret"]);
+		}
     }
 
     public function getApi()
