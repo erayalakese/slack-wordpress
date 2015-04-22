@@ -34,7 +34,9 @@ class Slack_Plugin {
 		}
 
 		$channels = $this->api->get_channel_list();
+		if(!$channels) $channels = array();
 		$groups = $this->api->get_group_list();
+		if(!$groups) $groups = array();
 		$all_channels = array_merge($channels,$groups);
 		$ops = $this->get_options();
 		?>
