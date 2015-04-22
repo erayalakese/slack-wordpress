@@ -4,7 +4,7 @@ Donate link: http://goo.gl/KTmqNL
 Tags: slack,integration,chat,api,notification,team
 Requires at least: 3.6.1
 Tested up to: 4.2
-Stable tag: 1.3.1
+Stable tag: 1.4.0
 License: The MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -16,9 +16,9 @@ You can contribute to this project on [GitHub](https://github.com/erayalakese/sl
 
 This plugin sends notifications when
 
- 1. a new post published
- 2. a post updated (**new**)
- 3. a post deleted
+ 1. a new post/page published
+ 2. a post/page updated
+ 3. a post/page deleted
  4. a new comment pending approval 
  5. a new category created 
  6. a new category deleted
@@ -49,6 +49,10 @@ This plugin sends notifications when
 6. Now you can configure Slack on *Settings > Slack* page.
 
 == Changelog ==
+
+= 1.4.0 =
+* Critical bug fixed
+* 'Page' post type support
 
 = 1.3.0 =
 * Support for private channels (groups)

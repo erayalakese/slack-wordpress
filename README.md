@@ -22,9 +22,9 @@
 # FEATURES
 This plugin sends notifications when
 
- 1. a new post published
- 2. a post updated (**new**)
- 3. a post deleted
+ 1. a new post/page published
+ 2. a post/page updated
+ 3. a post/page deleted
  4. a new comment pending approval 
  5. a new category created 
  6. a new category deleted
