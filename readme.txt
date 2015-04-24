@@ -4,7 +4,7 @@ Donate link: http://goo.gl/KTmqNL
 Tags: slack,integration,chat,api,notification,team
 Requires at least: 3.6.1
 Tested up to: 4.2
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: The MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -49,6 +49,9 @@ This plugin sends notifications when
 6. Now you can configure Slack on *Settings > Slack* page.
 
 == Changelog ==
+
+= 1.4.1 =
+* Ready for WordPress 4.2
 
 = 1.4.0 =
 * Critical bug fixed
