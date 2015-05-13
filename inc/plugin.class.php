@@ -493,7 +493,7 @@ class Slack_Plugin {
     	if(isset($_GET["code"]))
 		{
 			$qs = "client_id=".$this->api->app_client_id."&client_secret=".$this->api->app_client_secret."&code=".$_GET["code"]."&redirect_uri=http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-			$c = file_get_contents("https://slack.com/api/oauth.access?".$qs);
+			$c = $this->make_request("https://slack.com/api/oauth.access?".$qs);
 			$result = json_decode($c);
 			update_option("slack_for_wp_token", $result->access_token);
 			$this->api->set_auth_token($result->access_token);
@@ -517,6 +517,25 @@ class Slack_Plugin {
 			update_option("slack_app_client_secret", $_POST["app_client_secret"]);
 		}
     }
+
+    public static function make_request($url)
+	{
+		if(function_exists('curl_version')) :
+			$CURL = curl_init();
+
+			curl_setopt($CURL, CURLOPT_URL, $url);
+			curl_setopt($CURL, CURLOPT_HEADER, 0);
+			curl_setopt($CURL, CURLOPT_RETURNTRANSFER, 1);
+
+			$data = curl_exec($CURL);
+
+			curl_close($CURL);
+
+			return $data;
+		else :
+			return file_get_contents($url);
+		endif;
+	}
 
     public function getApi()
     {

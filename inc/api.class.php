@@ -34,7 +34,7 @@ class Slack_API {
 	{
 		$url = "https://slack.com/api/channels.list";
 		$url .= "?exclude_archived=1&token=".$this->get_auth_token();
-		$c = file_get_contents($url);
+		$c = Slack_Plugin::make_request($url);
 		$result = json_decode($c);
 
 		if(isset($result->channels))
@@ -47,7 +47,7 @@ class Slack_API {
 	{
 		$url = "https://slack.com/api/groups.list";
 		$url .= "?exclude_archived=1&token=".$this->get_auth_token();
-		$c = file_get_contents($url);
+		$c = Slack_Plugin::make_request($url);
 		$result = json_decode($c);
 
 		if(isset($result->groups))
@@ -65,7 +65,7 @@ class Slack_API {
 		$url .= "&text=".urlencode($msg);
 		$url .= "&username=WordPress%20BOT";
 
-		$result = json_decode(file_get_contents($url));
+		$result = json_decode(Slack_Plugin::make_request($url));
 		return $result;
 
 	}
