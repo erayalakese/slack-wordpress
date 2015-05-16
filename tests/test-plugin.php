@@ -11,7 +11,7 @@ class SlackPlugin_Test extends WP_UnitTestCase {
 
 	public function testVersion()
 	{
-		$this->assertEquals($this->plugin->getVersion(), "1.4.2");
+		$this->assertEquals($this->plugin->getVersion(), "1.5.0");
 	}
 
 	public function test_waiting_comment_hook()
