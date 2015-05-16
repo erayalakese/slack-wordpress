@@ -16,9 +16,9 @@ You can contribute to this project on [GitHub](https://github.com/erayalakese/sl
 
 This plugin sends notifications when
 
- 1. a new post/page published
- 2. a post/page updated
- 3. a post/page deleted
+ 1. a new post/page/custom post type published
+ 2. a post/page/custom post type updated
+ 3. a post/page/custom post type deleted
  4. a new comment pending approval 
  5. a new category created 
  6. a new category deleted
@@ -49,6 +49,10 @@ This plugin sends notifications when
 6. Now you can configure Slack on *Settings > Slack* page.
 
 == Changelog ==
+
+= 1.5.0 =
+* Major file_get_contents() bug fixed
+* Custom Post Type support
 
 = 1.4.1 =
 * Ready for WordPress 4.2

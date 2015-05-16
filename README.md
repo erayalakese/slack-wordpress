@@ -7,7 +7,7 @@
 
 
 **Build Status:** [![Build Status](https://travis-ci.org/erayalakese/slack-wordpress.svg?branch=master)](https://travis-ci.org/erayalakese/slack-wordpress)          
-**Tested with:** WordPress 3.6.1 and WordPress 4.1.1  **and ready for WordPress 4.2**     
+**Tested with:** WordPress 3.6.1, WordPress 4.1.1  **and WordPress 4.2.2**     
 **Tested with:** PHP 5.4 and PHP 5.5   
 **License:** [The MIT License](http://opensource.org/licenses/MIT)
 
@@ -22,9 +22,9 @@
 # FEATURES
 This plugin sends notifications when
 
- 1. a new post/page published
- 2. a post/page updated
- 3. a post/page deleted
+ 1. a new post/page/**custom post type** published
+ 2. a post/page/**custom post type** updated
+ 3. a post/page/**custom post type** deleted
  4. a new comment pending approval 
  5. a new category created 
  6. a new category deleted
