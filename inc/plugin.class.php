@@ -98,6 +98,7 @@ class Slack_Plugin {
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_publish_post->post_title?"checked=checked":""?> name="slack_publish_post[post_title]" />Post title
 		                <input type="checkbox" <?=$ops->slack_publish_post->post_author?"checked=checked":""?> name="slack_publish_post[post_author]" />Post author
+		                <input type="checkbox" <?=$ops->slack_publish_post->post_excerpt?"checked=checked":""?> name="slack_publish_post[post_excerpt]" />Post excerpt
 		            </div>
 		            <hr />
 		            <input type="checkbox" name="slack_update_post" <?=$ops->slack_update_post?"checked=checked":""?> class="slack_admin_checkbox" />
@@ -109,6 +110,7 @@ class Slack_Plugin {
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_update_post->post_title?"checked=checked":""?> name="slack_update_post[post_title]" />Post title
 		                <input type="checkbox" <?=$ops->slack_update_post->post_editor?"checked=checked":""?> name="slack_update_post[post_editor]" />Post editor
+		                <input type="checkbox" <?=$ops->slack_update_post->post_excerpt?"checked=checked":""?> name="slack_update_post[post_excerpt]" />Post excerpt
 		            </div>
 		            <hr />
 		            <input type="checkbox" name="slack_trashed_post" <?=$ops->slack_trashed_post?"checked=checked":""?> class="slack_admin_checkbox" />
@@ -120,6 +122,7 @@ class Slack_Plugin {
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_trashed_post->post_title?"checked=checked":""?> name="slack_trashed_post[post_title]" />Post title
 		                <input type="checkbox" <?=$ops->slack_trashed_post->post_author?"checked=checked":""?> name="slack_trashed_post[post_author]" />Post author
+		                <input type="checkbox" <?=$ops->slack_trashed_post->post_excerpt?"checked=checked":""?> name="slack_trashed_post[post_excerpt]" />Post excerpt
 		            </div>
 		        </div>
 		    </div>
@@ -135,6 +138,7 @@ class Slack_Plugin {
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_publish_page->post_title?"checked=checked":""?> name="slack_publish_page[post_title]" />Page title
 		                <input type="checkbox" <?=$ops->slack_publish_page->post_author?"checked=checked":""?> name="slack_publish_page[post_author]" />Page author
+		                <input type="checkbox" <?=$ops->slack_publish_page->post_excerpt?"checked=checked":""?> name="slack_publish_page[post_excerpt]" />Page excerpt
 		            </div>
 		            <hr />
 		            <input type="checkbox" name="slack_update_page" <?=$ops->slack_update_page?"checked=checked":""?> class="slack_admin_checkbox" />
@@ -146,6 +150,7 @@ class Slack_Plugin {
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_update_page->post_title?"checked=checked":""?> name="slack_update_page[post_title]" />Page title
 		                <input type="checkbox" <?=$ops->slack_update_page->post_editor?"checked=checked":""?> name="slack_update_page[post_editor]" />Page editor
+		                <input type="checkbox" <?=$ops->slack_update_page->post_excerpt?"checked=checked":""?> name="slack_update_page[post_excerpt]" />Page excerpt
 		            </div>
 		            <hr />
 		            <input type="checkbox" name="slack_trashed_page" <?=$ops->slack_trashed_page?"checked=checked":""?> class="slack_admin_checkbox" />
@@ -157,6 +162,7 @@ class Slack_Plugin {
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_trashed_page->post_title?"checked=checked":""?> name="slack_trashed_page[post_title]" />Page title
 		                <input type="checkbox" <?=$ops->slack_trashed_page->post_author?"checked=checked":""?> name="slack_trashed_page[post_author]" />Page author
+		                <input type="checkbox" <?=$ops->slack_trashed_page->post_excerpt?"checked=checked":""?> name="slack_trashed_page[post_excerpt]" />Page excerpt
 		            </div>
 		        </div>
 		    </div>
@@ -173,6 +179,7 @@ class Slack_Plugin {
 		                <br />
 		                <input type="checkbox" <?=$ops->{"slack_publish_$cpt"}->post_title?"checked=checked":""?> name="slack_publish_<?=$cpt?>[post_title]" /><?=$cpt?> title
 		                <input type="checkbox" <?=$ops->{"slack_publish_$cpt"}->post_author?"checked=checked":""?> name="slack_publish_<?=$cpt?>[post_author]" /><?=$cpt?> author
+		                <input type="checkbox" <?=$ops->{"slack_publish_$cpt"}->post_excerpt?"checked=checked":""?> name="slack_publish_<?=$cpt?>[post_excerpt]" /><?=$cpt?> excerpt
 		            </div>
 		            <hr />
 		            <input type="checkbox" name="slack_update_<?=$cpt?>" <?=$ops->{"slack_update_$cpt"}?"checked=checked":""?> class="slack_admin_checkbox" />
@@ -184,6 +191,7 @@ class Slack_Plugin {
 		                <br />
 		                <input type="checkbox" <?=$ops->{"slack_update_$cpt"}->post_title?"checked=checked":""?> name="slack_update_<?=$cpt?>[post_title]" /><?=$cpt?> title
 		                <input type="checkbox" <?=$ops->{"slack_update_$cpt"}->post_editor?"checked=checked":""?> name="slack_update_<?=$cpt?>[post_editor]" /><?=$cpt?> editor
+		                <input type="checkbox" <?=$ops->{"slack_update_$cpt"}->post_excerpt?"checked=checked":""?> name="slack_update_<?=$cpt?>[post_excerpt]" /><?=$cpt?> excerpt
 		            </div>
 		            <hr />
 		            <input type="checkbox" name="slack_trashed_<?=$cpt?>" <?=$ops->{"slack_trashed_$cpt"}?"checked=checked":""?> class="slack_admin_checkbox" />
@@ -195,6 +203,7 @@ class Slack_Plugin {
 		                <br />
 		                <input type="checkbox" <?=$ops->{"slack_trashed_$cpt"}->post_title?"checked=checked":""?> name="slack_trashed_<?=$cpt?>[post_title]" /><?=$cpt?> title
 		                <input type="checkbox" <?=$ops->{"slack_trashed_$cpt"}->post_author?"checked=checked":""?> name="slack_trashed_<?=$cpt?>[post_author]" /><?=$cpt?> author
+		                <input type="checkbox" <?=$ops->{"slack_trashed_$cpt"}->post_excerpt?"checked=checked":""?> name="slack_trashed_<?=$cpt?>[post_excerpt]" /><?=$cpt?> excerpt
 		            </div>
 		        </div>
 		    </div>
@@ -334,6 +343,7 @@ class Slack_Plugin {
 			$msg .= " published.\n";
 			$msg .= ($hooks->{"slack_publish_$post_type"}->post_author=='on'?' Author '.get_the_author_meta('display_name', get_post($post->ID)->post_author)."\n":'');
 			$msg .= get_permalink($post->ID);
+			$msg .= "\nPost excerpt : ".$hooks->{"slack_publish_$post_type"}->post_excerpt;
 			$this->api->publish_post($hooks->{"slack_publish_$post_type"}->channel, $msg);
 			
 		elseif( $strOldStatus == 'publish' && $strNewStatus == 'publish') :
@@ -346,6 +356,7 @@ class Slack_Plugin {
 			$msg .= " was updated.\n";
 			$msg .= ($hooks->{"slack_update_$post_type"}->post_editor=='on'?"Editor: {$current_user->display_name} \n":'');
 			$msg .= get_permalink($post->ID);
+			$msg .= "\nPost excerpt : ".$hooks->{"slack_publish_$post_type"}->post_excerpt;
 			$this->api->publish_post($hooks->{"slack_update_$post_type"}->channel, $msg);
 		endif;
 	}
