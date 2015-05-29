@@ -4,7 +4,7 @@ Donate link: http://goo.gl/KTmqNL
 Tags: slack,integration,chat,api,notification,team
 Requires at least: 3.6.1
 Tested up to: 4.2.2
-Stable tag: 1.5.1
+Stable tag: 1.6.1
 License: The MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -49,6 +49,9 @@ This plugin sends notifications when
 6. Now you can configure Slack on *Settings > Slack* page.
 
 == Changelog ==
+
+= 1.6.1 =
+* Fix for bug #18 . Wordpress Jetpack plugin conflict solved.
 
 = 1.6.0 =
 * Post excerpt support for all post types
