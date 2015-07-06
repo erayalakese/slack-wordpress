@@ -30,6 +30,9 @@
   border: 1px solid;
   z-index: 9999;
 }
+.slack-notification a img {
+  margin-top: 5px;
+}
 
 /* Slack Notification on Mobile */
 
