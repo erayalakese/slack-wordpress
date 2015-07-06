@@ -35,7 +35,7 @@
 
 @media (max-width:960px) {
   .slack-notification {
-    width: 200px;
+    width: 100%;
     padding: 10px;
     border: 1px solid;
     z-index: 9999;
