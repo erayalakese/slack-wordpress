@@ -1,22 +1,49 @@
 .container-fluid {
-    font-family:'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 .page-header {
-    border: none;
+  border: none;
 }
 .row {
-    border-width:1px 0;
-    border-color: #eee;
-    border-style: solid;
-    min-height: 50px;
-    vertical-align: middle;
-    padding: 30px 0;
+  border-width: 1px 0;
+  border-color: #eee;
+  border-style: solid;
+  min-height: 50px;
+  vertical-align: middle;
+  padding: 30px 0;
 }
 .row:nth-child(even) {
-    background-color : #f8f8f8;
+  background-color: #f8f8f8;
 }
 .row div:first-child {
-    font-weight: bold;
-    vertical-align: middle;
-    font-size: 25px;
+  font-weight: bold;
+  vertical-align: middle;
+  font-size: 25px;
 }
+.slack-notification {
+  width: 200px;
+  padding: 10px;
+  float: right;
+  position: fixed;
+  right: 0;
+  top: 100px;
+  border: 1px solid;
+  z-index: 9999;
+}
+
+/* Slack Notification on Mobile */
+
+@media (max-width:960px) {
+  .slack-notification {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid;
+    z-index: 9999;
+    float: none;
+    position: initial;
+    right: initial;
+    top: initial;
+  }
+}
+
+/* End Slack Notification on Mobile */
