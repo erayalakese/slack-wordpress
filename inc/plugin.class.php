@@ -49,7 +49,7 @@ class Slack_Plugin {
 		</div>
 		<div class="container-fluid">
 		    <div class="page-header">
-		         <h1><img src="<?=plugins_url('img/slack.png', dirname(__FILE__))?>" alt=""> <small>integration for WordPress</small></h1>
+		         <h1><img src="<?=plugins_url('img/slack_svg.svg', dirname(__FILE__))?>" alt="Slack Logo" width="392" height="115"> <small>integration for WordPress</small></h1>
 		    </div>
 		    <div class="row">
 		        <div class="col-sm-3">SLACK CONNECT</div>
