@@ -618,4 +618,4 @@ class Slack_Plugin {
     {
     	return "1.6.1";
     }
-}}
+}
