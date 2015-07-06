@@ -30,16 +30,7 @@ class Slack_Plugin {
 		?>
 		<div class="wrap">
 		<div class="bootstrap-wp-wrapper">
-		<div class="slack-notification bg-info" style="
-		    width: 200px;
-		    padding: 10px;
-		    float: right;
-		    position: fixed;
-		    right: 0;
-		    top: 100px;
-		    border: 1px solid;
-		    z-index: 9999;
-		">
+		<div class="slack-notification bg-info">
 			<p><strong>Version: </strong><?=$this->getVersion()?></p><p>All bug reports and new feature requests are welcome in <a href="https://github.com/erayalakese/slack-wordpress/issues">here</a>.
 			<hr>
 			<h5>PREMIUM <img src="<?=plugins_url('img/wordpress.png', dirname(__FILE__))?>" width="100"> PLUGINS <small>FROM AUTHOR</small></h5>
