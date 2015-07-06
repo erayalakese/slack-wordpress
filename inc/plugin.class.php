@@ -62,7 +62,7 @@ class Slack_Plugin {
 						echo "<a href='https://api.slack.com/applications/new'>Create a new application</a><br />";
 						echo "<form action='' method='POST'><label for='app_client_id'>App Client ID</label><input type='text' name='app_client_id' />";
 						echo "<label for='app_client_secret'>App Client Secret</label><input type='text' name='app_client_secret' />";
-						echo "<input type='submit' class='btn btn-secondary' value='STEP 1 : SAVE'><input type='hidden' name='page' value='slack-for-wordpress' /></form>";
+						echo "<input type='submit' class='button-primary' value='STEP 1 : SAVE'><input type='hidden' name='page' value='slack-for-wordpress' /></form>";
 						else :
 						echo "<a href=".$this->api->slack_auth_link()." class='btn btn-primary'>STEP 2 : LOGIN TO SLACK</a>";
 						echo "<p><a href='?page=slack-for-wordpress&unlink=1' class='btn btn-primary'>UNLINK FROM SLACK</a></p>";
@@ -618,4 +618,4 @@ class Slack_Plugin {
     {
     	return "1.6.1";
     }
-}
+}}
