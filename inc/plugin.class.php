@@ -297,6 +297,17 @@ class Slack_Plugin {
 		                <br />
 		                <input type="checkbox" <?=$ops->slack_delete_user->username?"checked=checked":""?> name="slack_delete_user[username]" />Username
 		            </div>
+		            <hr />
+		            <input type="checkbox" <?=$ops->slack_login_user?"checked=checked":""?> name="slack_login_user" class="slack_admin_checkbox" />
+		            <label>When a user logged in </label>
+		            <br />
+		            <div class="<?=$ops->slack_login_user?"":"disabled"?>">Send notification to this channel :
+		                <select name="slack_login_user[channel]"><?=$this->print_channels_options($all_channels, $ops->slack_login_user)?></select>
+		                <br />And add these datas :
+		                <br />
+		                <input type="checkbox" <?=$ops->slack_login_user->username?"checked=checked":""?> name="slack_login_user[username]" />Username
+		                <input type="checkbox" <?=$ops->slack_login_user->siteinfo?"checked=checked":""?> name="slack_login_user[siteinfo]" />Site Info (Name &amp; URL, useful for multi-sites)
+		            </div>
 		        </div>
 		    </div>
 		    <div class="row">
@@ -440,6 +451,17 @@ class Slack_Plugin {
 			$msg = 'User deleted.';
 		$this->api->publish_post($hooks->slack_delete_user->channel, $msg);
 	}
+	public function login_user_hook($user_login, $user)
+	{
+		$hooks = $this->get_options();
+
+		$msg = 'User logged in.';
+		if($hooks->slack_login_user->username=='on')
+			$msg .= "\nUsername : ".$user_login;
+		if($hooks->slack_login_user->siteinfo=='on')
+			$msg .= "\nSite: ".get_bloginfo( 'name' ).' ('.get_bloginfo( 'wpurl' ).')';
+		$this->api->publish_post($hooks->slack_login_user->channel, $msg);
+	}
 
 	public function register_scripts()
 	{
@@ -550,6 +572,10 @@ class Slack_Plugin {
     	if($hooks->slack_delete_user)
     	{
     		add_action('delete_user', array($this, 'delete_user_hook'));
+    	}
+    	if($hooks->slack_login_user)
+    	{
+    		add_action('wp_login', array($this, 'login_user_hook'), 10, 2);
     	}
     	endif;
     }
