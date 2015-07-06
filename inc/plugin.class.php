@@ -336,7 +336,7 @@ class Slack_Plugin {
 			$msg .= " published.\n";
 			$msg .= ($hooks->{"slack_publish_$post_type"}->post_author=='on'?' Author '.get_the_author_meta('display_name', get_post($post->ID)->post_author)."\n":'');
 			$msg .= get_permalink($post->ID);
-			$msg .= "\nPost excerpt : ".$hooks->{"slack_publish_$post_type"}->post_excerpt;
+			$msg .= ($hooks->{"slack_publish_$post_type"}->post_excerpt=='on'?"\nPost excerpt : ".$post->post_excerpt:'');
 			$this->api->publish_post($hooks->{"slack_publish_$post_type"}->channel, $msg);
 
 		elseif( $strOldStatus == 'publish' && $strNewStatus == 'publish') :
@@ -349,7 +349,7 @@ class Slack_Plugin {
 			$msg .= " was updated.\n";
 			$msg .= ($hooks->{"slack_update_$post_type"}->post_editor=='on'?"Editor: {$current_user->display_name} \n":'');
 			$msg .= get_permalink($post->ID);
-			$msg .= "\nPost excerpt : ".$hooks->{"slack_publish_$post_type"}->post_excerpt;
+			$msg .= ($hooks->{"slack_publish_$post_type"}->post_excerpt=='on'?"\nPost excerpt : ".$post->post_excerpt:'');
 			$this->api->publish_post($hooks->{"slack_update_$post_type"}->channel, $msg);
 		endif;
 	}
