@@ -30,21 +30,14 @@ class Slack_Plugin {
 		?>
 		<div class="wrap">
 		<div class="bootstrap-wp-wrapper">
-		<div class="slack-notification bg-info" style="
-		    width: 200px;
-		    padding: 10px;
-		    float: right;
-		    position: fixed;
-		    right: 0;
-		    top: 100px;
-		    border: 1px solid;
-		    z-index: 9999;
-		">
+		<div class="slack-notification bg-info">
 			<p><strong>Version: </strong><?=$this->getVersion()?></p><p>All bug reports and new feature requests are welcome in <a href="https://github.com/erayalakese/slack-wordpress/issues">here</a>.
 			<hr>
 			<h5>PREMIUM <img src="<?=plugins_url('img/wordpress.png', dirname(__FILE__))?>" width="100"> PLUGINS <small>FROM AUTHOR</small></h5>
 			<a style="" href="http://codecanyon.net/item/wordpress-post-series-ultimate/11334162?ref=erayalakese"><img src="<?=plugins_url('img/thumb.png', dirname(__FILE__))?>" alt=""></a>
 			<a style="" href="http://codecanyon.net/item/debug-my-wp/11440759?ref=erayalakese"><img src="<?=plugins_url('img/80x80.jpg', dirname(__FILE__))?>" alt=""></a>
+			<a style="" href="http://codecanyon.net/item/enstats-dashboard-widget-for-envato-authors/11950647?ref=erayalakese"><img src="<?=plugins_url('img/enstats.png', dirname(__FILE__))?>" alt=""></a>
+			<a style="" href="http://codecanyon.net/user/erayalakese/portfolio?ref=erayalakese"><img src="<?=plugins_url('img/vcfe.jpg', dirname(__FILE__))?>" alt=""></a>
 			</p>
 		</div>
 		<div class="container-fluid">
@@ -57,7 +50,7 @@ class Slack_Plugin {
 		        	<?php
 					if(!$this->api->get_auth_token())
 					{
-						
+
 						if(!get_option('slack_app_client_id')):
 						echo "<a href='https://api.slack.com/applications/new'>Create a new application</a><br />";
 						echo "<form action='' method='POST'><label for='app_client_id'>App Client ID</label><input type='text' name='app_client_id' />";
@@ -334,7 +327,7 @@ class Slack_Plugin {
 		}
 
 		$post_type = $post->post_type;
-		
+
 		if( ( $strOldStatus == 'draft' || $strOldStatus == 'auto-draft' || $strOldStatus == 'new' ) && $strNewStatus == 'publish' ) :
 			// New post/page published
 			$hooks = $this->get_options();
@@ -345,11 +338,11 @@ class Slack_Plugin {
 			$msg .= get_permalink($post->ID);
 			$msg .= "\nPost excerpt : ".$hooks->{"slack_publish_$post_type"}->post_excerpt;
 			$this->api->publish_post($hooks->{"slack_publish_$post_type"}->channel, $msg);
-			
+
 		elseif( $strOldStatus == 'publish' && $strNewStatus == 'publish') :
 			// Post/Page updated
 			$hooks = $this->get_options();
-		
+
 			// Find real user who edit post, instead of author of post.
 			$current_user = wp_get_current_user();
 			$msg = ($hooks->{"slack_update_$post_type"}->post_title=='on'?get_the_title($post->ID):'A '.$post_type);
@@ -495,7 +488,7 @@ class Slack_Plugin {
 
     	if(is_object($hooks)) :
 
-    	// Using same hook func for post and page actions.	
+    	// Using same hook func for post and page actions.
     	if($hooks->slack_publish_post || $hooks->slack_update_post)
     	{
     		add_action('transition_post_status', array($this, 'publish_post_hook'), 10, 3);
