@@ -57,15 +57,15 @@ class Slack_Plugin {
 		        	<?php
 					if(!$this->api->get_auth_token())
 					{
-						
+
 						if(!get_option('slack_app_client_id')):
 						echo "<a href='https://api.slack.com/applications/new'>Create a new application</a><br />";
 						echo "<form action='' method='POST'><label for='app_client_id'>App Client ID</label><input type='text' name='app_client_id' />";
 						echo "<label for='app_client_secret'>App Client Secret</label><input type='text' name='app_client_secret' />";
 						echo "<input type='submit' class='button-primary' value='STEP 1 : SAVE'><input type='hidden' name='page' value='slack-for-wordpress' /></form>";
 						else :
-						echo "<a href=".$this->api->slack_auth_link()." class='btn btn-primary'>STEP 2 : LOGIN TO SLACK</a>";
-						echo "<p><a href='?page=slack-for-wordpress&unlink=1' class='btn btn-primary'>UNLINK FROM SLACK</a></p>";
+						echo "<a href=".$this->api->slack_auth_link()." class='button-secondary'>STEP 2 : LOGIN TO SLACK</a>";
+						echo "<p><a href='?page=slack-for-wordpress&unlink=1' class='button-secondary'>UNLINK FROM SLACK</a></p>";
 						endif;
 					}
 					else
@@ -79,7 +79,7 @@ class Slack_Plugin {
 						{
 							echo "<p>".$group->name." (#".$group->id.")"." <span style='color:red;font-weight: bold'>(private)</span></p>";
 						}
-						echo "<p><a href='?page=slack-for-wordpress&unlink=1' class='btn btn-primary'>UNLINK FROM SLACK</a></p>";
+						echo "<p><a href='?page=slack-for-wordpress&unlink=1' class='button-secondary'>UNLINK FROM SLACK</a></p>";
 					}
 					?>
 		        </div>
@@ -307,7 +307,7 @@ class Slack_Plugin {
 		        </div>
 		    </div>
 		    <div class="row">
-		        <input type="submit" name="slack_options_submit" class="btn btn-primary" value="Submit" />
+		        <input type="submit" name="slack_options_submit" class="button-primary" value="Submit" />
 		    </div>
 			<?php endif; ?>
 		    </form>
@@ -334,7 +334,7 @@ class Slack_Plugin {
 		}
 
 		$post_type = $post->post_type;
-		
+
 		if( ( $strOldStatus == 'draft' || $strOldStatus == 'auto-draft' || $strOldStatus == 'new' ) && $strNewStatus == 'publish' ) :
 			// New post/page published
 			$hooks = $this->get_options();
@@ -345,11 +345,11 @@ class Slack_Plugin {
 			$msg .= get_permalink($post->ID);
 			$msg .= "\nPost excerpt : ".$hooks->{"slack_publish_$post_type"}->post_excerpt;
 			$this->api->publish_post($hooks->{"slack_publish_$post_type"}->channel, $msg);
-			
+
 		elseif( $strOldStatus == 'publish' && $strNewStatus == 'publish') :
 			// Post/Page updated
 			$hooks = $this->get_options();
-		
+
 			// Find real user who edit post, instead of author of post.
 			$current_user = wp_get_current_user();
 			$msg = ($hooks->{"slack_update_$post_type"}->post_title=='on'?get_the_title($post->ID):'A '.$post_type);
@@ -495,7 +495,7 @@ class Slack_Plugin {
 
     	if(is_object($hooks)) :
 
-    	// Using same hook func for post and page actions.	
+    	// Using same hook func for post and page actions.
     	if($hooks->slack_publish_post || $hooks->slack_update_post)
     	{
     		add_action('transition_post_status', array($this, 'publish_post_hook'), 10, 3);
