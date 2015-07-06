@@ -39,6 +39,14 @@ This plugin sends notifications when
 
  `publish_post()` returns response of [chat.postMessage](https://api.slack.com/methods/chat.postMessage) , you can look at **Response** section. Also you can check **Formatting** section to formatting your message.
 
+ = AUTHOR =
+ * [Eray Alakese](http://eray.rocks)
+
+ = CONTRIBUTORS =
+ * [wormeyman](https://github.com/wormeyman)
+ * [Cartor](https://github.com/Cartor)
+ * [likol](https://github.com/likol)
+
 == Installation ==
 
 1. Create a new Slack Application on [here](https://api.slack.com/applications/new "New Slack Application")

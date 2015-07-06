@@ -51,3 +51,11 @@ You can send custom Slack notifications within your theme or plugin . To achieve
 ![screenshot-2](assets/screenshot-2.png)
 ![screenshot-3](assets/screenshot-3.png)
 ![screenshot-4](assets/screenshot-4.png)
+
+# AUTHOR
+* [Eray Alakese](http://eray.rocks)
+
+# CONTRIBUTORS
+* [wormeyman](https://github.com/wormeyman)
+* [Cartor](https://github.com/Cartor)
+* [likol](https://github.com/likol)
