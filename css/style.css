@@ -20,3 +20,30 @@
     vertical-align: middle;
     font-size: 25px;
 }
+.slack-notification {
+  width: 200px;
+  padding: 10px;
+  float: right;
+  position: fixed;
+  right: 0;
+  top: 100px;
+  border: 1px solid;
+  z-index: 9999;
+}
+
+/* Slack Notification on Mobile */
+
+@media (max-width:960px) {
+  .slack-notification {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid;
+    z-index: 9999;
+    float: none;
+    position: initial;
+    right: initial;
+    top: initial;
+  }
+}
+
+/* End Slack Notification on Mobile */
