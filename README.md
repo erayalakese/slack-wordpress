@@ -33,6 +33,7 @@ This plugin sends notifications when
  9. theme switched
  10. a new user registered
  11. a user is removed
+ 12. a user logged in **NEW FEATURE**
 
 # FOR DEVELOPERS
 You can send custom Slack notifications within your theme or plugin . To achieve this, **slack-wordpress** declares a global variable `$slack_plugin` for you. You can send notification like this :
