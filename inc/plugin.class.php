@@ -37,7 +37,7 @@ class Slack_Plugin {
 			<a style="" href="http://codecanyon.net/item/wordpress-post-series-ultimate/11334162?ref=erayalakese"><img src="<?=plugins_url('img/thumb.png', dirname(__FILE__))?>" alt=""></a>
 			<a style="" href="http://codecanyon.net/item/debug-my-wp/11440759?ref=erayalakese"><img src="<?=plugins_url('img/80x80.jpg', dirname(__FILE__))?>" alt=""></a>
 			<a style="" href="http://codecanyon.net/item/enstats-dashboard-widget-for-envato-authors/11950647?ref=erayalakese"><img src="<?=plugins_url('img/enstats.png', dirname(__FILE__))?>" alt=""></a>
-			<a style="" href="http://codecanyon.net/user/erayalakese/portfolio?ref=erayalakese"><img src="<?=plugins_url('img/vcfe.jpg', dirname(__FILE__))?>" alt=""></a>
+			<a style="" href="http://codecanyon.net/item/facebook-elements-for-visual-composer/12026917?ref=erayalakese"><img src="<?=plugins_url('img/vcfe.jpg', dirname(__FILE__))?>" alt=""></a>
 			</p>
 		</div>
 		<div class="container-fluid">
