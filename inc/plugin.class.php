@@ -38,6 +38,7 @@ class Slack_Plugin {
 			<a style="" href="http://codecanyon.net/item/debug-my-wp/11440759?ref=erayalakese"><img src="<?=plugins_url('img/80x80.jpg', dirname(__FILE__))?>" alt=""></a>
 			<a style="" href="http://codecanyon.net/item/enstats-dashboard-widget-for-envato-authors/11950647?ref=erayalakese"><img src="<?=plugins_url('img/enstats.png', dirname(__FILE__))?>" alt=""></a>
 			<a style="" href="http://codecanyon.net/item/facebook-elements-for-visual-composer/12026917?ref=erayalakese"><img src="<?=plugins_url('img/vcfe.jpg', dirname(__FILE__))?>" alt=""></a>
+			<a style="" href="http://codecanyon.net/item/chart-elements-for-visual-composer/12132158?ref=erayalakese"><img src="<?=plugins_url('img/vcce.jpg', dirname(__FILE__))?>" alt=""></a>
 			</p>
 		</div>
 		<div class="container-fluid">
@@ -582,7 +583,7 @@ class Slack_Plugin {
 
     public function http_requests()
     {
-    	if(isset($_GET["page"] && $_GET["page"] == "slack-for-wordpress" && isset($_GET["code"]))
+    	if(isset($_GET["page"]) && $_GET["page"] == "slack-for-wordpress" && isset($_GET["code"]))
 		{
 			$qs = "client_id=".$this->api->app_client_id."&client_secret=".$this->api->app_client_secret."&code=".$_GET["code"]."&redirect_uri=http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 			$c = $this->make_request("https://slack.com/api/oauth.access?".$qs);
