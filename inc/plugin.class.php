@@ -494,7 +494,7 @@ class Slack_Plugin {
     {
     	$ops = get_option('slack_options');
     	if(!$ops) {
-    		add_option('slack_options');
+    		add_option('slack_options', json_encode(array()));
     		$ops = get_option('slack_options');
     	}
     	$ops_decoded = json_decode($ops);
@@ -582,7 +582,7 @@ class Slack_Plugin {
 
     public function http_requests()
     {
-    	if($_GET["page"] == "slack-for-wordpress" && isset($_GET["code"]))
+    	if(isset($_GET["page"] && $_GET["page"] == "slack-for-wordpress" && isset($_GET["code"]))
 		{
 			$qs = "client_id=".$this->api->app_client_id."&client_secret=".$this->api->app_client_secret."&code=".$_GET["code"]."&redirect_uri=http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 			$c = $this->make_request("https://slack.com/api/oauth.access?".$qs);
@@ -593,17 +593,17 @@ class Slack_Plugin {
 			wp_safe_redirect('options-general.php?page=slack-for-wordpress');
 			exit;
 		}
-		elseif ($_GET["page"] == "slack-for-wordpress" && $_GET["unlink"]) {
+		elseif ($_GET["page"] == "slack-for-wordpress" && isset($_GET["unlink"])) {
 			$this->api->slack_logout();
 
 			wp_safe_redirect('options-general.php?page=slack-for-wordpress');
 			exit;
 		}
-		else if($_GET["page"] == "slack-for-wordpress" && $_POST["slack_options_submit"])
+		else if($_GET["page"] == "slack-for-wordpress" && isset($_POST["slack_options_submit"]))
 		{
 			$this->register_options($_POST);
 		}
-		else if($_GET["page"] == "slack-for-wordpress" && $_POST["app_client_id"] && $_POST["app_client_secret"])
+		else if($_GET["page"] == "slack-for-wordpress" && isset($_POST["app_client_id"]) && isset($_POST["app_client_secret"]))
 		{
 			update_option("slack_app_client_id", $_POST["app_client_id"]);
 			update_option("slack_app_client_secret", $_POST["app_client_secret"]);
