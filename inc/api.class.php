@@ -7,19 +7,21 @@ class Slack_API {
 	public $app_client_id;
 	public $app_client_secret;
 	private $auth_token;
+	private $scopes;
 
 	public function __construct()
 	{
 		$this->app_client_id = get_option('slack_app_client_id');
 		$this->app_client_secret = get_option('slack_app_client_secret');
 		$this->auth_token = get_option("slack_for_wp_token");
+		$this->scopes = urlencode('channels:read groups:read chat:write:bot');
 	}
 
 	public function slack_auth_link() {
 
 		if(!$this->app_client_id) $this->app_client_id = get_option('slack_app_client_id');
 		if(!$this->app_client_secret) $this->app_client_secret = get_option('slack_app_client_secret');
-		$url = $this->auth_url."?client_id=".$this->app_client_id."&redirect_uri=http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+		$url = $this->auth_url."?client_id=".$this->app_client_id."&scope=".$this->scopes."&redirect_uri=http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 		return $url;
 	}
 
