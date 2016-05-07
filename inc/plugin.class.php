@@ -583,7 +583,9 @@ class Slack_Plugin {
 
     public function http_requests()
     {
-    	if(isset($_GET["page"]) && $_GET["page"] == "slack-for-wordpress" && isset($_GET["code"]))
+    	if(isset($_GET["page"])) 
+    	{
+    		if ($_GET["page"] == "slack-for-wordpress" && isset($_GET["code"]))
 		{
 			$qs = "client_id=".$this->api->app_client_id."&client_secret=".$this->api->app_client_secret."&code=".$_GET["code"]."&redirect_uri=http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 			$c = $this->make_request("https://slack.com/api/oauth.access?".$qs);
@@ -609,6 +611,7 @@ class Slack_Plugin {
 			update_option("slack_app_client_id", $_POST["app_client_id"]);
 			update_option("slack_app_client_secret", $_POST["app_client_secret"]);
 		}
+    	}
     }
 
     public static function make_request($url)
